@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://m7xendlceylm"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_jgth1"]
+[ext_resource type="Script" path="res://Player/player_mover.gd" id="2_iel4n"]
+[ext_resource type="Script" path="res://Player/player_camera.gd" id="3_f18oa"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kyiye"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_guish"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+script = ExtResource("1_jgth1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_kyiye")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_guish")
+
+[node name="PlayerMover" type="Node3D" parent="."]
+script = ExtResource("2_iel4n")
+
+[node name="ClimbingRayCast3D" type="RayCast3D" parent="PlayerMover"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+enabled = false
+target_position = Vector3(0, 0, -1)
+debug_shape_thickness = 5
+
+[node name="SlidingRayCast3D" type="RayCast3D" parent="PlayerMover"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+enabled = false
+target_position = Vector3(0, -0.25, 0)
+debug_shape_thickness = 5
+
+[node name="LandedRayCast3D" type="RayCast3D" parent="PlayerMover"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+enabled = false
+target_position = Vector3(0, -0.25, 0)
+
+[node name="ClimbingTimer" type="Timer" parent="PlayerMover"]
+process_callback = 0
+wait_time = 0.5
+one_shot = true
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.504892, 0)
+script = ExtResource("3_f18oa")
