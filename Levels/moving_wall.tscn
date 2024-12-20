@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bavo6ltbadqrr"]
+
+[ext_resource type="PackedScene" uid="uid://cfxugwj4ix3hr" path="res://Levels/moving_terrain.tscn" id="1_e2fc3"]
+
+[node name="MovingWall" instance=ExtResource("1_e2fc3")]
+ease_speed = 2.0
+
+[node name="AnimatableBody3D" parent="." index="0"]
+transform = Transform3D(-4.37113e-08, 0, -0.999998, 0, 0.999998, 0, 0.999998, 0, -4.37113e-08, 0, 0, 0)
+
+[node name="PathFollow3D" parent="Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0, 0.999998, 0, 0.999998, 0, -0.999998, 0, -4.37113e-08, 0, 0, 0)
+progress = 0.0
+cubic_interp = false
+loop = false
+
+[node name="RemoteTransform3D" parent="Path3D/PathFollow3D" index="0"]
+remote_path = NodePath("../../../AnimatableBody3D")
+update_rotation = false
+update_scale = false

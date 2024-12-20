@@ -51,7 +51,6 @@ func start_slide():
 		
 		# go into slide if the slope is not too steep
 		if ground_normal.y >= 0.55:
-			print("starting slide")
 			is_sliding = true
 			player.velocity += player_mover.move_dir_starting_slide
 	
@@ -87,10 +86,8 @@ func handle_slide():
 			if player.velocity.length() < 10.0 and sliding_uphill:
 				disable_sliding()
 		else:
-			#print(sliding_speed_percentage)
 			if sliding_speed_percentage > 1.0 or (prev_ground_normal.y < ground_normal.y and sliding_uphill):
 				disable_sliding()
-				#print()
 			else:
 				player.velocity += player_mover.move_dir_starting_slide * 5.0 - player.velocity * sliding_speed_percentage
 		

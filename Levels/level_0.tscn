@@ -1,25 +1,51 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8dxw6mdxvfx6"]
+[gd_scene load_steps=14 format=3 uid="uid://c8dxw6mdxvfx6"]
 
-[ext_resource type="Shader" path="res://uv.gdshader" id="1_aaseo"]
 [ext_resource type="Material" uid="uid://cxnv2l2hjdvb6" path="res://Environment/Materials/dark_grid.tres" id="2_bqm51"]
 [ext_resource type="PackedScene" uid="uid://m7xendlceylm" path="res://Player/player.tscn" id="3_aq7tb"]
+[ext_resource type="PackedScene" uid="uid://bavo6ltbadqrr" path="res://Levels/moving_wall.tscn" id="3_c6ucf"]
+[ext_resource type="PackedScene" uid="uid://dxg6u4dvx0rwc" path="res://Levels/Assets/obstacle_tube.tscn" id="4_xxdnk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_08fr8"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_6ble7"]
+[sub_resource type="Sky" id="Sky_t4aag"]
 sky_material = SubResource("ProceduralSkyMaterial_08fr8")
 
 [sub_resource type="Environment" id="Environment_bwq5v"]
 background_mode = 2
-sky = SubResource("Sky_6ble7")
+sky = SubResource("Sky_t4aag")
 tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_75v4o"]
-render_priority = 0
-shader = ExtResource("1_aaseo")
+
+[sub_resource type="BoxMesh" id="BoxMesh_2w747"]
+size = Vector3(1, 10, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_btpu4"]
+size = Vector3(1, 10, 5)
+
+[sub_resource type="Curve3D" id="Curve3D_pnagy"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_3ddvu"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_qka3r"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
 [node name="Level0" type="Node3D"]
 
@@ -41,9 +67,9 @@ size = Vector3(97, 1, 50)
 material = ExtResource("2_bqm51")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 452.032, -100, 58.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 452.032, -100, 80)
 material_override = SubResource("ShaderMaterial_75v4o")
-size = Vector3(564, 1, 167)
+size = Vector3(564, 1, 124)
 material = ExtResource("2_bqm51")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
@@ -108,3 +134,57 @@ material = ExtResource("2_bqm51")
 
 [node name="Player" parent="." instance=ExtResource("3_aq7tb")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.3016, 1.70969, -0.810548)
+
+[node name="MovingWall" parent="." instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3.5, 10)
+
+[node name="MeshInstance3D" parent="MovingWall/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_2w747")
+
+[node name="CollisionShape3D" parent="MovingWall/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_btpu4")
+
+[node name="Path3D" parent="MovingWall" index="1"]
+curve = SubResource("Curve3D_pnagy")
+
+[node name="PathFollow3D" parent="MovingWall/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0, -0.999998, 0, 0.999998, 0, 0.999998, 0, -4.37113e-08, 0, 0, 0)
+
+[node name="MovingWall2" parent="." instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 4.5, 12)
+time_offset = 0.33
+
+[node name="MeshInstance3D" parent="MovingWall2/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_2w747")
+
+[node name="CollisionShape3D" parent="MovingWall2/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_btpu4")
+
+[node name="Path3D" parent="MovingWall2" index="1"]
+curve = SubResource("Curve3D_3ddvu")
+
+[node name="PathFollow3D" parent="MovingWall2/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0, -0.999998, 0, 0.999998, 0, 0.999998, 0, -4.37113e-08, 0, 0, 0)
+
+[node name="MovingWall3" parent="." instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 5.5, 14)
+time_offset = 0.67
+
+[node name="MeshInstance3D" parent="MovingWall3/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_2w747")
+
+[node name="CollisionShape3D" parent="MovingWall3/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_btpu4")
+
+[node name="Path3D" parent="MovingWall3" index="1"]
+curve = SubResource("Curve3D_qka3r")
+
+[node name="PathFollow3D" parent="MovingWall3/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0, -0.999998, 0, 0.999998, 0, 0.999998, 0, -4.37113e-08, 0, 0, 0)
+
+[node name="ObstacleTube" parent="." instance=ExtResource("4_xxdnk")]
+transform = Transform3D(5, -8.66025, 0, 8.66025, 5, 0, 0, 0, 10, 197.74, -61.0538, 2.65714)
+
+[editable path="MovingWall"]
+[editable path="MovingWall2"]
+[editable path="MovingWall3"]
