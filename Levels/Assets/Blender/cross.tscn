@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://byp5n2w25ycf7"]
+
+[ext_resource type="PackedScene" uid="uid://de2bwqunhxk2w" path="res://Levels/Assets/Blender/cross.blend" id="1_tpl70"]
+[ext_resource type="Material" uid="uid://cxnv2l2hjdvb6" path="res://Environment/Materials/dark_grid.tres" id="2_11q3i"]
+
+[node name="cross" instance=ExtResource("1_tpl70")]
+
+[node name="Cylinder" parent="." index="0"]
+material_override = ExtResource("2_11q3i")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0qgpqrutctps"]
+
+[ext_resource type="PackedScene" uid="uid://bo86tqo1orqxy" path="res://Levels/Assets/Blender/tube.blend" id="1_smpmp"]
+[ext_resource type="Material" uid="uid://cxnv2l2hjdvb6" path="res://Environment/Materials/dark_grid.tres" id="2_68pca"]
+
+[node name="tube" instance=ExtResource("1_smpmp")]
+
+[node name="Cylinder" parent="." index="0"]
+material_override = ExtResource("2_68pca")

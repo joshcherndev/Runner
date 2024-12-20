@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://m7xendlceylm"]
+[gd_scene load_steps=17 format=3 uid="uid://m7xendlceylm"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_jgth1"]
 [ext_resource type="Script" path="res://Player/player_mover.gd" id="2_iel4n"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Player/climbing_component.gd" id="4_etobh"]
 [ext_resource type="Script" path="res://Player/sprinting_component.gd" id="5_l4wdm"]
 [ext_resource type="Script" path="res://Player/jump_component.gd" id="6_jq8hl"]
+[ext_resource type="Script" path="res://Player/stairs_component.gd" id="7_nefls"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kyiye"]
 
@@ -20,7 +21,7 @@ height = 1.0
 
 [sub_resource type="Curve3D" id="Curve3D_ecdqq"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.5, 0, 0, 0, 0, 0, 0, 0, 0, 2.5, -1),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, -1),
 "tilts": PackedFloat32Array(0, 0, 0)
 }
 point_count = 3
@@ -115,6 +116,7 @@ _data = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
 floor_constant_speed = true
+floor_block_on_wall = false
 floor_max_angle = 0.610865
 floor_snap_length = 1.0
 script = ExtResource("1_jgth1")
@@ -152,13 +154,12 @@ debug_shape_thickness = 5
 script = ExtResource("4_etobh")
 
 [node name="AboveLedgeRayCast3D" type="RayCast3D" parent="PlayerMover/ClimbingComponent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 enabled = false
 target_position = Vector3(0, 0, -1)
 debug_shape_thickness = 5
 
 [node name="LedgeDetectionRayCast3D" type="RayCast3D" parent="PlayerMover/ClimbingComponent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 enabled = false
 target_position = Vector3(0, 0, -1)
 debug_shape_thickness = 5
@@ -168,7 +169,6 @@ wait_time = 0.75
 one_shot = true
 
 [node name="VaultingPath3D" type="Path3D" parent="PlayerMover/ClimbingComponent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 top_level = true
 curve = SubResource("Curve3D_ecdqq")
 
@@ -188,9 +188,24 @@ script = ExtResource("5_l4wdm")
 [node name="JumpComponent" type="Node3D" parent="PlayerMover"]
 script = ExtResource("6_jq8hl")
 
+[node name="StairsComponent" type="Node3D" parent="PlayerMover"]
+script = ExtResource("7_nefls")
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="PlayerMover/StairsComponent"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.420611, -0.884735)
+enabled = false
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="PlayerMover/StairsComponent"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+enabled = false
+target_position = Vector3(0, -0.75, 0)
+
 [node name="PlayerCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505, 0)
-fov = 80.0
+fov = 100.0
 script = ExtResource("3_f18oa")
 
 [node name="FlipTimer" type="Timer" parent="PlayerCamera"]

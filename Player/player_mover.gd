@@ -5,6 +5,7 @@ extends Node3D
 @onready var climbing_component = $ClimbingComponent
 @onready var sprinting_component = $SprintingComponent
 @onready var jump_component = $JumpComponent
+@onready var stairs_component = $StairsComponent
 
 @export var max_walk_speed = 10.0
 @export var walk_accel = 2.0
@@ -17,6 +18,7 @@ var move_dir: Vector3
 var last_non_zero_move_dir: Vector3
 var velocity_before_sliding: Vector3
 var move_dir_starting_slide: Vector3
+var snapped_to_floor = false
 
 func _physics_process(delta):
 	if !sliding_component.is_sliding:
@@ -45,7 +47,14 @@ func _physics_process(delta):
 		player.velocity.y -= gravity * delta
 		velocity_before_sliding.y -= gravity * delta
 	
-	player.move_and_slide()
+	if not stairs_component.snap_up_stairs_check(delta):
+		# snap_up_stairs_check moves the player manually, so don't call move_and_slide.
+		# should be fine as we ensure with body_test_motion that the player doesn't collide
+		# with anything except the stair its moving up to.
+		player.move_and_slide() 
+		stairs_component.snap_down_to_stairs_check()
+	
+	snapped_to_floor = stairs_component.snapped_to_stairs_last_frame
 
 func set_move_dir(new_move_dir: Vector3):
 	move_dir = new_move_dir
@@ -53,6 +62,9 @@ func set_move_dir(new_move_dir: Vector3):
 	move_dir = move_dir.normalized()
 	if move_dir.length() > 0.0:
 		last_non_zero_move_dir = move_dir
+
+func is_surface_too_steep(normal: Vector3) -> bool:
+	return normal.angle_to(Vector3.UP) > player.floor_max_angle
 
 func check_is_sprinting() -> bool:
 	return sprinting_component.is_sprinting

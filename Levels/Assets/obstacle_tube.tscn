@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxg6u4dvx0rwc"]
+
+[ext_resource type="PackedScene" uid="uid://d0qgpqrutctps" path="res://Levels/Assets/Blender/tube.tscn" id="1_hy4wy"]
+[ext_resource type="Script" path="res://Levels/Assets/Scripts/spinning_in_tube.gd" id="3_1p31l"]
+[ext_resource type="PackedScene" uid="uid://byp5n2w25ycf7" path="res://Levels/Assets/Blender/cross.tscn" id="3_5gknw"]
+
+[node name="ObstacleTube" type="Node3D"]
+
+[node name="tube" parent="." instance=ExtResource("1_hy4wy")]
+
+[node name="cross" parent="." instance=ExtResource("3_5gknw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13, 0)
+script = ExtResource("3_1p31l")
+spin_speed = 2.0
+
+[node name="cross2" parent="." instance=ExtResource("3_5gknw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+script = ExtResource("3_1p31l")
+spin_speed = 2.0
+
+[node name="cross3" parent="." instance=ExtResource("3_5gknw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+script = ExtResource("3_1p31l")
+spin_speed = 2.0
+
+[node name="cross4" parent="." instance=ExtResource("3_5gknw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+script = ExtResource("3_1p31l")
+spin_speed = 2.0
+
+[node name="cross5" parent="." instance=ExtResource("3_5gknw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("3_1p31l")
+spin_speed = 2.0
+
+[node name="cross6" parent="." instance=ExtResource("3_5gknw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+script = ExtResource("3_1p31l")
+spin_speed = 2.0
+
+[node name="cross7" parent="." instance=ExtResource("3_5gknw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+script = ExtResource("3_1p31l")
+spin_speed = 2.0
+
+[node name="cross8" parent="." instance=ExtResource("3_5gknw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
+script = ExtResource("3_1p31l")
+spin_speed = 2.0
