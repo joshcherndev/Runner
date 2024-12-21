@@ -15,34 +15,32 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _process(delta):
+	# Enter full screen on 'f'
 	if Input.is_action_just_pressed("fullscreen"):
 		var fs = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
 		if fs:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	# Quit game on 'esc'
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
 	
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
-	player_mover.set_move_dir(move_dir)
-	
-	# go to crouch from standing
+	# Control mesh and collision shapes when crouched and standing
+	# STANDING -> CROUCH
 	if Input.is_action_pressed("crouch"):
 		state_animation_player.play("crouch")
 	if Input.is_action_just_pressed("crouch"):
 		crouching_collision_shape_3d.disabled = false
 		standing_collision_shape_3d.disabled = true
-	
-	# go from crouch to standing
+	# CROUCH -> STANDING
 	if Input.is_action_just_released("crouch"):
 		crouching_collision_shape_3d.disabled = true
 		standing_collision_shape_3d.disabled = false
 		state_animation_player.play("RESET")
 	
-	player_camera.tilt_camera(input_dir, player_mover.check_is_sprinting(), player_mover.check_is_sliding(), delta)
+	# Logic for camera movement called here
+	player_camera.tilt_camera(player_mover.get_input_dir(), delta)
 
 func _input(event):
 	if event is InputEventMouseMotion:

@@ -1,13 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://m7xendlceylm"]
+[gd_scene load_steps=18 format=3 uid="uid://m7xendlceylm"]
 
-[ext_resource type="Script" path="res://Player/player.gd" id="1_jgth1"]
-[ext_resource type="Script" path="res://Player/player_mover.gd" id="2_iel4n"]
-[ext_resource type="Script" path="res://Player/sliding_component.gd" id="3_dab2k"]
-[ext_resource type="Script" path="res://Player/player_camera.gd" id="3_f18oa"]
-[ext_resource type="Script" path="res://Player/climbing_component.gd" id="4_etobh"]
-[ext_resource type="Script" path="res://Player/sprinting_component.gd" id="5_l4wdm"]
-[ext_resource type="Script" path="res://Player/jump_component.gd" id="6_jq8hl"]
-[ext_resource type="Script" path="res://Player/stairs_component.gd" id="7_nefls"]
+[ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_jgth1"]
+[ext_resource type="Script" path="res://Player/Scripts/player_mover.gd" id="2_iel4n"]
+[ext_resource type="Script" path="res://Player/Scripts/sliding_component.gd" id="3_dab2k"]
+[ext_resource type="Script" path="res://Player/Scripts/player_camera.gd" id="3_f18oa"]
+[ext_resource type="Script" path="res://Player/Scripts/climbing_component.gd" id="4_etobh"]
+[ext_resource type="Script" path="res://Player/Scripts/crouch_component.gd" id="4_vewot"]
+[ext_resource type="Script" path="res://Player/Scripts/sprinting_component.gd" id="5_l4wdm"]
+[ext_resource type="Script" path="res://Player/Scripts/jump_component.gd" id="6_jq8hl"]
+[ext_resource type="Script" path="res://Player/Scripts/stairs_component.gd" id="7_nefls"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kyiye"]
 
@@ -141,13 +142,21 @@ mesh = SubResource("CapsuleMesh_1k1xh")
 [node name="PlayerMover" type="Node3D" parent="."]
 script = ExtResource("2_iel4n")
 
+[node name="SprintingComponent" type="Node3D" parent="PlayerMover"]
+script = ExtResource("5_l4wdm")
+
+[node name="CrouchComponent" type="Node3D" parent="PlayerMover"]
+script = ExtResource("4_vewot")
+
+[node name="JumpComponent" type="Node3D" parent="PlayerMover"]
+script = ExtResource("6_jq8hl")
+
 [node name="SlidingComponent" type="Node3D" parent="PlayerMover"]
 script = ExtResource("3_dab2k")
 
 [node name="SlidingRayCast3D" type="RayCast3D" parent="PlayerMover/SlidingComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 enabled = false
-target_position = Vector3(0, -0.25, 0)
 debug_shape_thickness = 5
 
 [node name="ClimbingComponent" type="Node3D" parent="PlayerMover"]
@@ -181,12 +190,6 @@ transform = Transform3D(-4.37113e-08, 0.999997, -4.37113e-08, 0, -4.37113e-08, -
 remote_path = NodePath(".")
 update_rotation = false
 update_scale = false
-
-[node name="SprintingComponent" type="Node3D" parent="PlayerMover"]
-script = ExtResource("5_l4wdm")
-
-[node name="JumpComponent" type="Node3D" parent="PlayerMover"]
-script = ExtResource("6_jq8hl")
 
 [node name="StairsComponent" type="Node3D" parent="PlayerMover"]
 script = ExtResource("7_nefls")

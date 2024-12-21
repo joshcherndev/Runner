@@ -27,28 +27,34 @@ var collision_normal = Vector3.ZERO
 @onready var player_mover = get_parent()
 @onready var player: CharacterBody3D = player_mover.get_parent()
 
+signal disable_jump
+signal enable_jump
+
+var debug = false
+
 func _ready():
 	climbing_timer.timeout.connect(enable_climbing)
 
 func _process(delta):
-	if can_climb:
-		if player.is_on_floor():
-			can_climb_and_landed = true
-			enable_climbing()
-	
-	if is_vaulting:
-		vault_over_ledge()
-	
-	# climbing
-	if Input.is_action_pressed("jump"):
-		climb()
-	
-	# jumping from climbing
-	if Input.is_action_just_released("jump"):
-		jump_from_climb()
+	if !debug:
+		if can_climb:
+			if player.is_on_floor():
+				can_climb_and_landed = true
+				enable_climbing()
+		
+		if is_vaulting:
+			vault_over_ledge()
+		
+		# climbing
+		if Input.is_action_pressed("jump"):
+			climb()
+		
+		# jumping from climbing
+		if Input.is_action_just_released("jump"):
+			jump_from_climb()
 
 func climb():
-	if !player.is_on_ceiling() and !player_mover.check_is_crouching() and !player_mover.check_is_sliding() and can_climb_and_landed:
+	if !player.is_on_ceiling()  and can_climb_and_landed:
 		ledge_detection_ray_cast_3d.enabled = true
 		ledge_detection_ray_cast_3d.force_raycast_update()
 		
@@ -84,13 +90,13 @@ func vault_over_ledge():
 	if update_position:
 		vaulting_path_3d.position = player.global_position
 		vaulting_path_3d.rotation = player.rotation
-		player_mover.disable_jump()
+		#player_mover.disable_jump()
 		update_position = false
 	if vaulting_path_follow_3d.progress_ratio >= 1.0:
 		is_vaulting = false
 		vault_progress = 0.0
 		vaulting_path_follow_3d.progress_ratio = 0.0
-		player_mover.enable_jump()
+		#player_mover.enable_jump()
 	
 	vaulting_path_follow_3d.progress_ratio += vault_speed
 	player.global_position = vaulting_remote_transform_3d.global_position
