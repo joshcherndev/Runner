@@ -22,39 +22,40 @@ var snapped_to_floor = false
 
 @onready var comp_velocity: Vector3 = Vector3.ZERO
 
+var debug = false
+
 func _physics_process(delta):
-	# Update gravity for when player is not on a floor
-	if !player.is_on_floor():
-		player.velocity.y -= gravity * delta
-	if player.velocity.y > 0.0 and player.is_on_ceiling():
-		player.velocity.y = 0.0
-	
-	_set_move_dir()
-	
-	# Add jump and slide velocities to the player velocity before updating
-	player.velocity += comp_velocity
-	
-	# NOT SLIDING
-	if not sliding_component.is_sliding():
-		var drag = _get_drag()
-		var accel = _get_accel()
+	if debug:
+		# Update gravity for when player is not on a floor
+		if !player.is_on_floor():
+			player.velocity.y -= gravity * delta
+		if player.velocity.y > 0.0 and player.is_on_ceiling():
+			player.velocity.y = 0.0
 		
-		var flat_velo = player.velocity
-		flat_velo.y = 0.0
-		player.velocity += accel * move_dir - flat_velo * drag
-	else:
-		player.velocity = player.velocity.clamp(Vector3(-9999, -9999, -9999), Vector3(sliding_component.max_sliding_speed, 99999, sliding_component.max_sliding_speed))
-	
-	
-	if not stairs_component.snap_up_stairs_check(delta):
-		# snap_up_stairs_check moves the player manually, so don't call move_and_slide.
-		# should be fine as we ensure with body_test_motion that the player doesn't collide
-		# with anything except the stair its moving up to.
-		player.move_and_slide() 
-		stairs_component.snap_down_to_stairs_check()
-	
-	snapped_to_floor = stairs_component.snapped_to_stairs_last_frame
-	comp_velocity = Vector3.ZERO
+		_set_move_dir()
+		
+		# Add jump and slide velocities to the player velocity before updating
+		player.velocity += comp_velocity
+		
+		# NOT SLIDING
+		if not sliding_component.is_sliding():
+			var drag = _get_drag()
+			var accel = _get_accel()
+			
+			
+		else:
+			player.velocity = player.velocity.clamp(Vector3(-9999, -9999, -9999), Vector3(sliding_component.max_sliding_speed, 99999, sliding_component.max_sliding_speed))
+		
+		
+		if not stairs_component.snap_up_stairs_check(delta):
+			# snap_up_stairs_check moves the player manually, so don't call move_and_slide.
+			# should be fine as we ensure with body_test_motion that the player doesn't collide
+			# with anything except the stair its moving up to.
+			player.move_and_slide() 
+			stairs_component.snap_down_to_stairs_check()
+		
+		snapped_to_floor = stairs_component.snapped_to_stairs_last_frame
+		comp_velocity = Vector3.ZERO
 
 func _set_move_dir():
 	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward").normalized()

@@ -1,14 +1,18 @@
-[gd_scene load_steps=18 format=3 uid="uid://m7xendlceylm"]
+[gd_scene load_steps=22 format=3 uid="uid://m7xendlceylm"]
 
 [ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_jgth1"]
 [ext_resource type="Script" path="res://Player/Scripts/player_mover.gd" id="2_iel4n"]
+[ext_resource type="Script" path="res://Generic Components/Scripts/state_machine.gd" id="2_lhyg3"]
+[ext_resource type="Script" path="res://Player/Scripts/States/idle.gd" id="3_5cl7t"]
 [ext_resource type="Script" path="res://Player/Scripts/sliding_component.gd" id="3_dab2k"]
 [ext_resource type="Script" path="res://Player/Scripts/player_camera.gd" id="3_f18oa"]
 [ext_resource type="Script" path="res://Player/Scripts/climbing_component.gd" id="4_etobh"]
+[ext_resource type="Script" path="res://Player/Scripts/States/walk.gd" id="4_kjhl5"]
 [ext_resource type="Script" path="res://Player/Scripts/crouch_component.gd" id="4_vewot"]
 [ext_resource type="Script" path="res://Player/Scripts/sprinting_component.gd" id="5_l4wdm"]
 [ext_resource type="Script" path="res://Player/Scripts/jump_component.gd" id="6_jq8hl"]
 [ext_resource type="Script" path="res://Player/Scripts/stairs_component.gd" id="7_nefls"]
+[ext_resource type="Script" path="res://Player/Scripts/player_move_component.gd" id="11_unij8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kyiye"]
 
@@ -139,6 +143,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_1k1xh")
 
+[node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_lhyg3")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("walk_state")]
+script = ExtResource("3_5cl7t")
+walk_state = NodePath("../Walk")
+animation_name = "RESET"
+
+[node name="Walk" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state")]
+script = ExtResource("4_kjhl5")
+idle_state = NodePath("../Idle")
+animation_name = "RESET"
+
 [node name="PlayerMover" type="Node3D" parent="."]
 script = ExtResource("2_iel4n")
 
@@ -214,7 +232,10 @@ script = ExtResource("3_f18oa")
 [node name="FlipTimer" type="Timer" parent="PlayerCamera"]
 wait_time = 0.3
 
-[node name="StateAnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_xshnn")
 }
+
+[node name="PlayerMoveComponent" type="Node" parent="."]
+script = ExtResource("11_unij8")

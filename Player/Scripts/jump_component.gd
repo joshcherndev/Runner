@@ -7,10 +7,11 @@ var disabled = false
 
 @onready var player_mover = get_parent()
 @onready var player: CharacterBody3D = player_mover.get_parent()
-
+var debug = false
 func _process(delta):
-	if !disabled and Input.is_action_just_pressed("jump"):
-		jump()
+	if debug:
+		if !disabled and Input.is_action_just_pressed("jump"):
+			jump()
 
 func jump():
 	if player.is_on_floor():

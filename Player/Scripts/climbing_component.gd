@@ -36,7 +36,7 @@ func _ready():
 	climbing_timer.timeout.connect(enable_climbing)
 
 func _process(delta):
-	if !debug:
+	if debug:
 		if can_climb:
 			if player.is_on_floor():
 				can_climb_and_landed = true

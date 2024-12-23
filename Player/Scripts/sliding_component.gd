@@ -13,15 +13,16 @@ var move_dir_starting_slide: Vector3
 
 @onready var player_mover = get_parent()
 @onready var player: CharacterBody3D = player_mover.get_parent()
-
+var debug = false
 func _physics_process(delta):
-	if not sliding and player.velocity.length() >= speed_required_for_slide and Input.is_action_pressed("crouch"):
-		_start_slide()
-	elif sliding:
-		_handle_slide()
-	
-	if Input.is_action_just_released("crouch"):
-		sliding = false
+	if debug:
+		if not sliding and player.velocity.length() >= speed_required_for_slide and Input.is_action_pressed("crouch"):
+			_start_slide()
+		elif sliding:
+			_handle_slide()
+		
+		if Input.is_action_just_released("crouch"):
+			sliding = false
 
 func _start_slide():
 	sliding_ray_cast_3d.enabled = true
