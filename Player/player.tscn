@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://m7xendlceylm"]
+[gd_scene load_steps=25 format=3 uid="uid://m7xendlceylm"]
 
 [ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_jgth1"]
 [ext_resource type="Script" path="res://Player/Scripts/player_mover.gd" id="2_iel4n"]
@@ -10,8 +10,11 @@
 [ext_resource type="Script" path="res://Player/Scripts/States/walk.gd" id="4_kjhl5"]
 [ext_resource type="Script" path="res://Player/Scripts/crouch_component.gd" id="4_vewot"]
 [ext_resource type="Script" path="res://Player/Scripts/sprinting_component.gd" id="5_l4wdm"]
+[ext_resource type="Script" path="res://Player/sprint.gd" id="5_uu1jw"]
 [ext_resource type="Script" path="res://Player/Scripts/jump_component.gd" id="6_jq8hl"]
+[ext_resource type="Script" path="res://Player/jump.gd" id="6_tv0aq"]
 [ext_resource type="Script" path="res://Player/Scripts/stairs_component.gd" id="7_nefls"]
+[ext_resource type="Script" path="res://Player/fall.gd" id="7_xm4d7"]
 [ext_resource type="Script" path="res://Player/Scripts/player_move_component.gd" id="11_unij8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kyiye"]
@@ -147,14 +150,40 @@ mesh = SubResource("CapsuleMesh_1k1xh")
 script = ExtResource("2_lhyg3")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("walk_state")]
+[node name="Idle" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("walk_state", "sprint_state", "jump_state")]
 script = ExtResource("3_5cl7t")
 walk_state = NodePath("../Walk")
+sprint_state = NodePath("../Sprint")
+jump_state = NodePath("../Jump")
 animation_name = "RESET"
 
-[node name="Walk" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state")]
+[node name="Walk" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "sprint_state", "jump_state")]
 script = ExtResource("4_kjhl5")
 idle_state = NodePath("../Idle")
+sprint_state = NodePath("../Sprint")
+jump_state = NodePath("../Jump")
+animation_name = "RESET"
+
+[node name="Sprint" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state")]
+script = ExtResource("5_uu1jw")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+jump_state = NodePath("../Jump")
+animation_name = "RESET"
+
+[node name="Jump" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "fall_state")]
+script = ExtResource("6_tv0aq")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+sprint_state = NodePath("../Sprint")
+fall_state = NodePath("../Fall")
+animation_name = "RESET"
+
+[node name="Fall" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state")]
+script = ExtResource("7_xm4d7")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+sprint_state = NodePath("../Sprint")
 animation_name = "RESET"
 
 [node name="PlayerMover" type="Node3D" parent="."]

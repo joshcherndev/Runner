@@ -1,20 +1,23 @@
 extends State
 
 @export var idle_state: State
-@export var sprint_state: State
+@export var walk_state: State
 @export var crouch_state: State
 @export var jump_state: State
 @export var fall_state: State
 
-@export var max_walk_speed = 10.0
-@export var walk_accel = 1.0
-@onready var walk_drag = walk_accel / max_walk_speed
+@export var max_sprint_speed = 16.0
+@export var sprint_accel = 3.0
+@onready var sprint_drag = sprint_accel / max_sprint_speed
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_pressed('crouch'):
 		return crouch_state
-	if Input.is_action_pressed('sprint') and Input.is_action_pressed("move_forward") and parent.is_on_floor:
-		return sprint_state
+	var input_dir = get_movement_input()
+	if Input.is_action_just_released('sprint') and input_dir.length() != 0.0:
+		return walk_state
+	if Input.is_action_just_released('sprint'):
+		return idle_state
 	if get_jump() and parent.is_on_floor():
 		return jump_state
 	
@@ -36,7 +39,7 @@ func process_physics(delta: float) -> State:
 	
 	var flat_velo = parent.velocity
 	flat_velo.y = 0.0
-	parent.velocity += walk_accel * move_dir - flat_velo * walk_drag
+	parent.velocity += sprint_accel * move_dir - flat_velo * sprint_drag
 	
 	parent.move_and_slide()
 	
