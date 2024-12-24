@@ -73,30 +73,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CrouchingCollisionShape3D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("StandingCollisionShape3D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_64b1t"]
 resource_name = "crouch"
@@ -138,30 +114,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CrouchingCollisionShape3D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("StandingCollisionShape3D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xshnn"]
 _data = {
@@ -199,57 +151,44 @@ mesh = SubResource("CapsuleMesh_1k1xh")
 script = ExtResource("2_lhyg3")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("walk_state", "sprint_state", "crouch_state", "jump_state", "fall_state")]
+[node name="Idle" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("walk_state", "sprint_state", "jump_state")]
 script = ExtResource("3_5cl7t")
 walk_state = NodePath("../Walk")
 sprint_state = NodePath("../Sprint")
-crouch_state = NodePath("../Crouch")
 jump_state = NodePath("../Jump")
-fall_state = NodePath("../Fall")
 animation_name = "RESET"
 
-[node name="Walk" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "sprint_state", "crouch_state", "jump_state", "fall_state")]
+[node name="Walk" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "sprint_state", "jump_state")]
 script = ExtResource("4_kjhl5")
 idle_state = NodePath("../Idle")
 sprint_state = NodePath("../Sprint")
-crouch_state = NodePath("../Crouch")
 jump_state = NodePath("../Jump")
-fall_state = NodePath("../Fall")
 animation_name = "RESET"
 
-[node name="Sprint" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "crouch_state", "jump_state", "fall_state")]
+[node name="Sprint" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state")]
 script = ExtResource("5_uu1jw")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
-crouch_state = NodePath("../Crouch")
 jump_state = NodePath("../Jump")
-fall_state = NodePath("../Fall")
 animation_name = "RESET"
 
-[node name="Jump" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "crouch_state", "fall_state")]
+[node name="Jump" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "fall_state")]
 script = ExtResource("6_tv0aq")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 sprint_state = NodePath("../Sprint")
-crouch_state = NodePath("../Crouch")
 fall_state = NodePath("../Fall")
 animation_name = "RESET"
 
-[node name="Fall" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "crouch_state")]
+[node name="Fall" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state")]
 script = ExtResource("7_xm4d7")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 sprint_state = NodePath("../Sprint")
-crouch_state = NodePath("../Crouch")
 animation_name = "RESET"
 
-[node name="Crouch" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "jump_state", "fall_state")]
+[node name="Crouch" type="Node" parent="MovementStateMachine"]
 script = ExtResource("8_uygg2")
-idle_state = NodePath("../Idle")
-walk_state = NodePath("../Walk")
-sprint_state = NodePath("../Sprint")
-jump_state = NodePath("../Jump")
-fall_state = NodePath("../Fall")
 animation_name = "crouch"
 
 [node name="PlayerMover" type="Node3D" parent="."]
@@ -334,16 +273,3 @@ libraries = {
 
 [node name="PlayerMoveComponent" type="Node" parent="."]
 script = ExtResource("11_unij8")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="StateLabel" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "State:
-Anim:"
-
-[node name="VelocityLabel" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "m/s:"

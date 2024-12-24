@@ -3,6 +3,7 @@ extends State
 @export var idle_state: State
 @export var walk_state: State
 @export var sprint_state: State
+@export var crouch_state: State
 
 @export var fall_drag: float = 0.05
 

@@ -21,8 +21,6 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	if get_jump() and parent.is_on_floor():
-		return jump_state
 	if not parent.is_on_floor():
 		parent.velocity.y -= gravity * delta
 	

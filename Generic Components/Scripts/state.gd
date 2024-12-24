@@ -9,8 +9,11 @@ var animations: AnimationPlayer
 var move_component
 var parent: CharacterBody3D
 
+signal entered_state
+
 func enter() -> void:
 	animations.play(animation_name)
+	entered_state.emit(self.name, animation_name)
 
 func exit() -> void:
 	pass

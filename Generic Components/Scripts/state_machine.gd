@@ -11,13 +11,13 @@ func init(parent: CharacterBody3D, animations: AnimationPlayer, move_component) 
 		child.parent = parent
 		child.animations = animations
 		child.move_component = move_component
+		child.entered_state.connect(parent.update_state_text)
 	
 	# Initialize to the default state
 	change_state(starting_state)
 
 # Change to the new state by first calling any exit logic on the current state.
 func change_state(new_state: State) -> void:
-	print(new_state)
 	if current_state:
 		current_state.exit()
 	

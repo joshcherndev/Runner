@@ -31,6 +31,8 @@ func process_physics(delta: float) -> State:
 	
 	if Input.is_action_pressed('sprint') and move_dir.length() != 0.0:
 		parent.velocity += sprint_state.sprint_accel * move_dir - flat_velo * sprint_state.sprint_drag
+	if Input.is_action_pressed('crouch') and move_dir.length() != 0.0:
+		parent.velocity += crouch_state.crouch_accel * move_dir - flat_velo * crouch_state.crouch_drag
 	elif move_dir.length() != 0.0:
 		parent.velocity += walk_state.walk_accel * move_dir - flat_velo * walk_state.walk_drag
 	# If no movement input detected, slow down velocity to a stop

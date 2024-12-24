@@ -13,6 +13,9 @@ extends CharacterBody3D
 @export var mouse_sensitivity_h = 0.15
 @export var mouse_sensitivity_v = 0.15
 
+@onready var state_label = $VBoxContainer/StateLabel
+@onready var velocity_label = $VBoxContainer/VelocityLabel
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	movement_state_machine.init(self, animations, player_move_component)
@@ -28,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	movement_state_machine.process_physics(delta)
 
 func _process(delta):
-	# Enter full screen on 'f'
+	# Enter full screen on 'f', go back to window on 'f'
 	if Input.is_action_just_pressed("fullscreen"):
 		var fs = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
 		if fs:
@@ -39,25 +42,18 @@ func _process(delta):
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
 	
-	
 	movement_state_machine.process_frame(delta)
-	
-	# TODO: move into a state in the state machine
-	# Control mesh and collision shapes when crouched and standing
-	# STANDING -> CROUCH
-	if Input.is_action_pressed("crouch"):
-		animations.play("crouch")
-	if Input.is_action_just_pressed("crouch"):
-		crouching_collision_shape_3d.disabled = false
-		standing_collision_shape_3d.disabled = true
-	# CROUCH -> STANDING
-	if Input.is_action_just_released("crouch"):
-		crouching_collision_shape_3d.disabled = true
-		standing_collision_shape_3d.disabled = false
-		animations.play("RESET")
-	
-	
-	
 	
 	# Logic for camera movement called here
 	player_camera.tilt_camera(player_mover.get_input_dir(), delta)
+	
+	_update_velocity_text()
+
+func update_state_text(state: String, anim: String) -> void:
+	state_label.text = 'State: ' + state + '\n' + 'Anim: ' + anim
+
+func _update_velocity_text() -> void:
+	velocity_label.text = 'm/s: ' + '(' + str(hundredth(self.velocity.x)) + ', ' + str(hundredth(self.velocity.y)) + ', ' + str(hundredth(self.velocity.z)) + ')'
+
+func hundredth(num: float) -> float:
+	return (int(num * 100.0)) / 100.0
