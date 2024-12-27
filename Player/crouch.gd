@@ -5,13 +5,14 @@ extends State
 @export var sprint_state: State
 @export var jump_state: State
 @export var fall_state: State
+@export var mid_air_crouch: State
 
 @export var max_crouch_speed = 5.0
 @export var crouch_accel = 3.0
 @onready var crouch_drag = crouch_accel / max_crouch_speed
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_pressed('sprint') and Input.is_action_pressed('move_forward') and parent.is_on_floor:
+	if Input.is_action_pressed('sprint') and Input.is_action_pressed('move_forward') and parent.is_on_floor():
 		return sprint_state
 	if get_jump() and parent.is_on_floor():
 		return jump_state
@@ -19,9 +20,6 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	if not parent.is_on_floor():
-		parent.velocity.y -= gravity * delta
-	
 	var input_dir = get_movement_input()
 	# Align movement direction to be on the current transform's basis
 	var move_dir = parent.transform.basis * Vector3(input_dir.x, 0.0, input_dir.y)
@@ -38,7 +36,10 @@ func process_physics(delta: float) -> State:
 	
 	parent.move_and_slide()
 	
-	# Parent no longer has floor underneath, begin falling
-	if !parent.is_on_floor():
+	# Parent no longer has floor underneath and
+	# not pressing crouch anymore, begin falling
+	if not parent.is_on_floor() and not Input.is_action_pressed('crouch'):
 		return fall_state
+	if not parent.is_on_floor() and Input.is_action_pressed("crouch"):
+		return mid_air_crouch
 	return null

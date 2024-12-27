@@ -13,7 +13,7 @@ signal entered_state
 
 func enter() -> void:
 	animations.play(animation_name)
-	entered_state.emit(self.name, animation_name)
+	entered_state.emit(self.name)
 
 func exit() -> void:
 	pass

@@ -11,9 +11,9 @@ extends State
 @onready var walk_drag = walk_accel / max_walk_speed
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_pressed('crouch'):
+	if Input.is_action_pressed("crouch") and parent.is_on_floor():
 		return crouch_state
-	if Input.is_action_pressed('sprint') and Input.is_action_pressed("move_forward") and parent.is_on_floor:
+	if Input.is_action_pressed('sprint') and Input.is_action_pressed("move_forward") and not Input.is_action_pressed("crouch") and parent.is_on_floor():
 		return sprint_state
 	if get_jump() and parent.is_on_floor():
 		return jump_state

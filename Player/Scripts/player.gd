@@ -14,11 +14,14 @@ extends CharacterBody3D
 @export var mouse_sensitivity_v = 0.15
 
 @onready var state_label = $VBoxContainer/StateLabel
+@onready var anim_label = $VBoxContainer/AnimLabel
 @onready var velocity_label = $VBoxContainer/VelocityLabel
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	movement_state_machine.init(self, animations, player_move_component)
+	animations.current_animation_changed.connect(_update_amim_text)
+	anim_label.text = "Anim: " + animations.current_animation
 
 func _unhandled_input(event: InputEvent) -> void:
 	movement_state_machine.process_input(event)
@@ -49,11 +52,14 @@ func _process(delta):
 	
 	_update_velocity_text()
 
-func update_state_text(state: String, anim: String) -> void:
-	state_label.text = 'State: ' + state + '\n' + 'Anim: ' + anim
+func update_state_text(state: String) -> void:
+	state_label.text = 'State: ' + state
+
+func _update_amim_text(anim: String):
+	anim_label.text = "Anim: " + anim
 
 func _update_velocity_text() -> void:
-	velocity_label.text = 'm/s: ' + '(' + str(hundredth(self.velocity.x)) + ', ' + str(hundredth(self.velocity.y)) + ', ' + str(hundredth(self.velocity.z)) + ')'
+	velocity_label.text = 'm/s (x/z, y): ' + '(' + str(hundredth(Vector2(self.velocity.x, self.velocity.z).length())) + ', ' + str(self.velocity.y) + ')'
 
 func hundredth(num: float) -> float:
 	return (int(num * 100.0)) / 100.0

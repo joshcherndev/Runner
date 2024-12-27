@@ -3,9 +3,27 @@ extends State
 @export var idle_state: State
 @export var walk_state: State
 @export var sprint_state: State
-@export var crouch_state: State
+@export var jump_state: State
+@export var grounded_crouch_state: State
+@export var mid_air_crouch_state: State
 
 @export var fall_drag: float = 0.05
+
+# Used to check which horizontal speed to maintain when falling
+var sprinting
+
+func enter() -> void:
+	super()
+	if jump_state.sprinting:
+		sprinting = true
+	else:
+		sprinting = false
+
+func process_input(event: InputEvent) -> State:
+	if Input.is_action_pressed("crouch"):
+		return mid_air_crouch_state
+	
+	return null
 
 func process_physics(delta: float) -> State:
 	if not parent.is_on_floor():
@@ -17,13 +35,20 @@ func process_physics(delta: float) -> State:
 	var flat_velo = parent.velocity
 	flat_velo.y = 0.0
 	
-	if Input.is_action_pressed('sprint') and move_dir.length() != 0.0:
-		parent.velocity += sprint_state.sprint_accel * move_dir - flat_velo * sprint_state.sprint_drag
-	elif move_dir.length() != 0.0:
-		parent.velocity += walk_state.walk_accel * move_dir - flat_velo * walk_state.walk_drag
-	# If no movement input detected, slow down velocity to a stop
+	# If player jumps while sprinting and continues to hold sprint, maintain velocity speed.
+	# When they let go of sprint, disable the ability to go into sprint velocity again.
+	if sprinting:
+		if Input.is_action_pressed('sprint') and move_dir.length() != 0.0:
+			parent.velocity += sprint_state.sprint_accel * move_dir - flat_velo * sprint_state.sprint_drag
+		else:
+			sprinting = false
 	else:
-		parent.velocity -= flat_velo * fall_drag
+		# If player is not sprinting but still is inputing a direction, use horizontal walk velocity.
+		if move_dir.length() != 0.0:
+			parent.velocity += walk_state.walk_accel * move_dir - flat_velo * walk_state.walk_drag
+		# If no movement input detected, slow down velocity to a stop.
+		else:
+			parent.velocity -= flat_velo * fall_drag
 	
 	parent.move_and_slide()
 	

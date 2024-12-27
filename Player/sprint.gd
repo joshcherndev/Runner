@@ -11,7 +11,7 @@ extends State
 @onready var sprint_drag = sprint_accel / max_sprint_speed
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_pressed('crouch'):
+	if Input.is_action_just_pressed('crouch'):
 		return crouch_state
 	var input_dir = get_movement_input()
 	if Input.is_action_just_released('sprint') and input_dir.length() != 0.0:

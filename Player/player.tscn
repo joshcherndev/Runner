@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://m7xendlceylm"]
+[gd_scene load_steps=27 format=3 uid="uid://m7xendlceylm"]
 
 [ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_jgth1"]
 [ext_resource type="Script" path="res://Player/Scripts/player_mover.gd" id="2_iel4n"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://Player/Scripts/stairs_component.gd" id="7_nefls"]
 [ext_resource type="Script" path="res://Player/fall.gd" id="7_xm4d7"]
 [ext_resource type="Script" path="res://Player/crouch.gd" id="8_uygg2"]
+[ext_resource type="Script" path="res://Player/mid_air_crouch.gd" id="9_gkjp0"]
 [ext_resource type="Script" path="res://Player/Scripts/player_move_component.gd" id="11_unij8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kyiye"]
@@ -203,7 +204,7 @@ starting_state = NodePath("Idle")
 script = ExtResource("3_5cl7t")
 walk_state = NodePath("../Walk")
 sprint_state = NodePath("../Sprint")
-crouch_state = NodePath("../Crouch")
+crouch_state = NodePath("../GroundedCrouch")
 jump_state = NodePath("../Jump")
 fall_state = NodePath("../Fall")
 animation_name = "RESET"
@@ -212,7 +213,7 @@ animation_name = "RESET"
 script = ExtResource("4_kjhl5")
 idle_state = NodePath("../Idle")
 sprint_state = NodePath("../Sprint")
-crouch_state = NodePath("../Crouch")
+crouch_state = NodePath("../GroundedCrouch")
 jump_state = NodePath("../Jump")
 fall_state = NodePath("../Fall")
 animation_name = "RESET"
@@ -221,34 +222,44 @@ animation_name = "RESET"
 script = ExtResource("5_uu1jw")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
-crouch_state = NodePath("../Crouch")
+crouch_state = NodePath("../GroundedCrouch")
 jump_state = NodePath("../Jump")
 fall_state = NodePath("../Fall")
 animation_name = "RESET"
 
-[node name="Jump" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "crouch_state", "fall_state")]
+[node name="Jump" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "grounded_crouch_state", "mid_air_crouch_state", "fall_state")]
 script = ExtResource("6_tv0aq")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 sprint_state = NodePath("../Sprint")
-crouch_state = NodePath("../Crouch")
+grounded_crouch_state = NodePath("../GroundedCrouch")
+mid_air_crouch_state = NodePath("../MidAirCrouch")
 fall_state = NodePath("../Fall")
 animation_name = "RESET"
 
-[node name="Fall" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "crouch_state")]
+[node name="Fall" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "jump_state", "grounded_crouch_state", "mid_air_crouch_state")]
 script = ExtResource("7_xm4d7")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 sprint_state = NodePath("../Sprint")
-crouch_state = NodePath("../Crouch")
+jump_state = NodePath("../Jump")
+grounded_crouch_state = NodePath("../GroundedCrouch")
+mid_air_crouch_state = NodePath("../MidAirCrouch")
 animation_name = "RESET"
 
-[node name="Crouch" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "jump_state", "fall_state")]
+[node name="GroundedCrouch" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "jump_state", "fall_state", "mid_air_crouch")]
 script = ExtResource("8_uygg2")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 sprint_state = NodePath("../Sprint")
 jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+mid_air_crouch = NodePath("../MidAirCrouch")
+animation_name = "crouch"
+
+[node name="MidAirCrouch" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("grounded_crouch_state", "fall_state")]
+script = ExtResource("9_gkjp0")
+grounded_crouch_state = NodePath("../GroundedCrouch")
 fall_state = NodePath("../Fall")
 animation_name = "crouch"
 
@@ -341,9 +352,9 @@ offset_bottom = 40.0
 
 [node name="StateLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "State:
-Anim:"
+
+[node name="AnimLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
 
 [node name="VelocityLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "m/s:"
