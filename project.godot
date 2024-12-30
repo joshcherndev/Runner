@@ -67,3 +67,7 @@ sprint={
 
 3d_physics/layer_1="environment"
 3d_physics/layer_2="player"
+
+[physics]
+
+3d/default_gravity=40.0
