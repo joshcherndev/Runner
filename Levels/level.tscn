@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://cxyb318ufkr50"]
+[gd_scene load_steps=24 format=3 uid="uid://cxyb318ufkr50"]
 
 [ext_resource type="Script" path="res://Levels/Scripts/level.gd" id="1_du8qd"]
 [ext_resource type="PackedScene" uid="uid://m7xendlceylm" path="res://Player/player.tscn" id="2_g3dvs"]
 [ext_resource type="Material" uid="uid://cxnv2l2hjdvb6" path="res://Environment/Materials/dark_grid.tres" id="2_sb5vj"]
 [ext_resource type="PackedScene" uid="uid://bavo6ltbadqrr" path="res://Levels/moving_wall.tscn" id="4_qi3ur"]
+[ext_resource type="PackedScene" uid="uid://bsqpi6ninpnh0" path="res://Levels/Scenes/respawn_point.tscn" id="5_ytupp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k1uit"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -83,7 +84,7 @@ point_count = 2
 script = ExtResource("1_du8qd")
 
 [node name="Player" parent="." instance=ExtResource("2_g3dvs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.03612, 1, 1.08266)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -15.8928, 3.78652, 0)
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 use_collision = true
@@ -634,7 +635,7 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 
 ease_speed = 1.0
 
 [node name="AnimatableBody3D" parent="Ramps/MovingWall" index="0"]
-transform = Transform3D(-3.35276e-08, 3.27826e-07, -0.999997, 0, 0.999999, -1.42109e-14, 0.999999, 0, -1.11759e-07, 0, 0, 0)
+transform = Transform3D(-3.35276e-08, 3.27826e-07, -0.999997, 0, 0.999999, -3.37508e-14, 0.999999, 0, -1.11759e-07, 0, 0, 0)
 
 [node name="MeshInstance3D" parent="Ramps/MovingWall/AnimatableBody3D" index="0"]
 transform = Transform3D(1, -1.49012e-08, 7.10543e-15, 0, 1, -1.77636e-15, 0, 2.66454e-15, 1, 0, 0, 1)
@@ -649,6 +650,19 @@ curve = SubResource("Curve3D_mv3xq")
 
 [node name="PathFollow3D" parent="Ramps/MovingWall/Path3D" index="0"]
 transform = Transform3D(-0.999998, 0, -8.74226e-08, 0, 0.999998, 0, 8.74226e-08, 0, -0.999998, 0, 0, 0)
+
+[node name="RespawnPoint" parent="." instance=ExtResource("5_ytupp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.368, 3.78652, 0)
+
+[node name="Point" parent="RespawnPoint" index="0"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.524788, 0, 0)
+remote_path = NodePath("../../Player")
+
+[node name="Area3D" parent="RespawnPoint" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.4721, 10.5519)
+monitorable = true
+
+[connection signal="body_shape_entered" from="RespawnPoint/Area3D" to="RespawnPoint" method="_on_area_3d_body_shape_entered"]
 
 [editable path="Stairs/MovingWall"]
 [editable path="Stairs/MovingWall2"]
@@ -673,3 +687,4 @@ transform = Transform3D(-0.999998, 0, -8.74226e-08, 0, 0.999998, 0, 8.74226e-08,
 [editable path="Spinning/MovingWall7"]
 [editable path="Spinning/MovingWall8"]
 [editable path="Ramps/MovingWall"]
+[editable path="RespawnPoint"]

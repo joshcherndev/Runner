@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsqpi6ninpnh0"]
+
+[ext_resource type="Script" path="res://Levels/Scripts/respawn_point.gd" id="1_e6nej"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_g3jak"]
+
+[node name="RespawnPoint" type="Node3D"]
+script = ExtResource("1_e6nej")
+
+[node name="Point" type="RemoteTransform3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("WorldBoundaryShape3D_g3jak")
