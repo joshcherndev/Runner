@@ -1,8 +1,11 @@
-extends Node
+extends Node3D
 
 @export var starting_state: State
 
+var prev_state: State
 var current_state: State
+
+signal state_changed
 
 # Initialize the state machine by giving each child state a reference to the
 # parent object it belongs to and enter the default starting_state.
@@ -11,7 +14,6 @@ func init(parent: CharacterBody3D, animations: AnimationPlayer, move_component) 
 		child.parent = parent
 		child.animations = animations
 		child.move_component = move_component
-		child.entered_state.connect(parent.update_state_text)
 	
 	# Initialize to the default state
 	change_state(starting_state)
@@ -21,8 +23,10 @@ func change_state(new_state: State) -> void:
 	if current_state:
 		current_state.exit()
 	
+	prev_state = current_state
 	current_state = new_state
 	current_state.enter()
+	state_changed.emit()
 
 # Pass through functions for the Player to call,
 # handling state changes as needed.

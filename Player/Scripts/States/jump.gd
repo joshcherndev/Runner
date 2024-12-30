@@ -6,6 +6,7 @@ extends State
 @export var grounded_crouch_state: State
 @export var mid_air_crouch_state: State
 @export var fall_state: State
+@export var climb_state: State
 
 @export var jump_force: float = 12.0
 @export var jump_drag: float = 0.05
@@ -19,6 +20,8 @@ func enter() -> void:
 	sprinting = true
 
 func process_input(event: InputEvent) -> State:
+	if get_climb():
+		return climb_state
 	if Input.is_action_pressed("crouch"):
 		return mid_air_crouch_state
 	

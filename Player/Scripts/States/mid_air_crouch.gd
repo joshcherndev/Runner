@@ -2,18 +2,25 @@ extends State
 
 @export var grounded_crouch_state: State
 @export var fall_state: State
+@export var climb_state: State
+@export var slide_state: State
 
 @export var max_crouch_speed = 5.0
 @export var crouch_accel = 3.0
 @onready var crouch_drag = crouch_accel / max_crouch_speed
 
 func process_input(event: InputEvent) -> State:
+	if get_climb():
+		return climb_state
 	if Input.is_action_just_released("crouch"):
 		return fall_state
 	
 	return null
 
 func process_physics(delta: float) -> State:
+	if get_slide():
+		return slide_state
+	
 	if not parent.is_on_floor():
 		parent.velocity.y -= gravity * delta
 	

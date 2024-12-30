@@ -1,18 +1,25 @@
-[gd_scene load_steps=22 format=3 uid="uid://m7xendlceylm"]
+[gd_scene load_steps=29 format=3 uid="uid://m7xendlceylm"]
 
 [ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_jgth1"]
+[ext_resource type="Script" path="res://Player/Scripts/player_mover.gd" id="2_iel4n"]
 [ext_resource type="Script" path="res://Generic Components/Scripts/state_machine.gd" id="2_lhyg3"]
 [ext_resource type="Script" path="res://Player/Scripts/States/idle.gd" id="3_5cl7t"]
+[ext_resource type="Script" path="res://Player/Scripts/sliding_component.gd" id="3_dab2k"]
 [ext_resource type="Script" path="res://Player/Scripts/player_camera.gd" id="3_f18oa"]
+[ext_resource type="Script" path="res://Player/Scripts/climbing_component.gd" id="4_etobh"]
 [ext_resource type="Script" path="res://Player/Scripts/States/walk.gd" id="4_kjhl5"]
-[ext_resource type="Script" path="res://Player/Scripts/States/sprint.gd" id="5_uu1jw"]
-[ext_resource type="Script" path="res://Player/Scripts/States/jump.gd" id="6_tv0aq"]
-[ext_resource type="Script" path="res://Player/Scripts/States/fall.gd" id="7_xm4d7"]
-[ext_resource type="Script" path="res://Player/Scripts/States/grounded_crouch.gd" id="8_uygg2"]
-[ext_resource type="Script" path="res://Player/Scripts/States/mid_air_crouch.gd" id="9_gkjp0"]
-[ext_resource type="Script" path="res://Player/Scripts/States/climb.gd" id="10_eqear"]
+[ext_resource type="Script" path="res://Player/Scripts/crouch_component.gd" id="4_vewot"]
+[ext_resource type="Script" path="res://Player/Scripts/sprinting_component.gd" id="5_l4wdm"]
+[ext_resource type="Script" path="res://Player/sprint.gd" id="5_uu1jw"]
+[ext_resource type="Script" path="res://Player/Scripts/jump_component.gd" id="6_jq8hl"]
+[ext_resource type="Script" path="res://Player/jump.gd" id="6_tv0aq"]
+[ext_resource type="Script" path="res://Player/Scripts/stairs_component.gd" id="7_nefls"]
+[ext_resource type="Script" path="res://Player/fall.gd" id="7_xm4d7"]
+[ext_resource type="Script" path="res://Player/crouch.gd" id="8_uygg2"]
+[ext_resource type="Script" path="res://Player/mid_air_crouch.gd" id="9_gkjp0"]
+[ext_resource type="Script" path="res://Player/climb.gd" id="10_eqear"]
 [ext_resource type="Script" path="res://Player/Scripts/player_move_component.gd" id="11_unij8"]
-[ext_resource type="Script" path="res://Player/Scripts/States/slide.gd" id="11_yknwi"]
+[ext_resource type="Script" path="res://Player/slide.gd" id="11_yknwi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kyiye"]
 
@@ -301,17 +308,103 @@ remote_path = NodePath(".")
 update_rotation = false
 update_scale = false
 
-[node name="Slide" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "grounded_crouch_state", "jump_state")]
+[node name="Slide" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state")]
 script = ExtResource("11_yknwi")
 idle_state = NodePath("../Idle")
-grounded_crouch_state = NodePath("../GroundedCrouch")
-jump_state = NodePath("../Jump")
 animation_name = "crouch"
 
 [node name="SlidingRayCast3D" type="RayCast3D" parent="MovementStateMachine/Slide"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 enabled = false
 debug_shape_thickness = 5
+
+[node name="PlayerMover" type="Node3D" parent="."]
+script = ExtResource("2_iel4n")
+
+[node name="SprintingComponent" type="Node3D" parent="PlayerMover"]
+script = ExtResource("5_l4wdm")
+
+[node name="CrouchComponent" type="Node3D" parent="PlayerMover"]
+script = ExtResource("4_vewot")
+
+[node name="JumpComponent" type="Node3D" parent="PlayerMover"]
+script = ExtResource("6_jq8hl")
+
+[node name="SlidingComponent" type="Node3D" parent="PlayerMover"]
+visible = false
+script = ExtResource("3_dab2k")
+
+[node name="SlidingRayCast3D" type="RayCast3D" parent="PlayerMover/SlidingComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+visible = false
+enabled = false
+debug_shape_thickness = 5
+
+[node name="ClimbingComponent" type="Node3D" parent="PlayerMover"]
+visible = false
+script = ExtResource("4_etobh")
+
+[node name="AboveLedgeRayCast3D1" type="RayCast3D" parent="PlayerMover/ClimbingComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+enabled = false
+target_position = Vector3(0, 0, -1)
+debug_shape_thickness = 5
+
+[node name="LedgeDetectionRayCast3D" type="RayCast3D" parent="PlayerMover/ClimbingComponent"]
+visible = false
+enabled = false
+target_position = Vector3(0, 0, -1)
+debug_shape_thickness = 5
+
+[node name="ClimbingTimer" type="Timer" parent="PlayerMover/ClimbingComponent"]
+wait_time = 0.75
+one_shot = true
+
+[node name="VaultingPath3D" type="Path3D" parent="PlayerMover/ClimbingComponent"]
+top_level = true
+visible = false
+curve = SubResource("Curve3D_ecdqq")
+
+[node name="VaultingPathFollow3D" type="PathFollow3D" parent="PlayerMover/ClimbingComponent/VaultingPath3D"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0)
+visible = false
+loop = false
+
+[node name="VaultingRemoteTransform3D" type="RemoteTransform3D" parent="PlayerMover/ClimbingComponent/VaultingPath3D/VaultingPathFollow3D"]
+transform = Transform3D(-4.37113e-08, 0.999997, -4.37113e-08, 0, -4.37113e-08, -0.999999, -0.999999, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+visible = false
+remote_path = NodePath(".")
+update_rotation = false
+update_scale = false
+
+[node name="StairsComponent" type="Node3D" parent="PlayerMover"]
+script = ExtResource("7_nefls")
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="PlayerMover/StairsComponent"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.420611, -0.884735)
+enabled = false
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="PlayerMover/StairsComponent"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+enabled = false
+target_position = Vector3(0, -0.75, 0)
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505, 0)
+fov = 100.0
+script = ExtResource("3_f18oa")
+
+[node name="FlipTimer" type="Timer" parent="PlayerCamera"]
+wait_time = 0.3
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xshnn")
+}
 
 [node name="PlayerMoveComponent" type="Node3D" parent="."]
 script = ExtResource("11_unij8")
@@ -328,29 +421,14 @@ debug_shape_thickness = 5
 [node name="StartingSlidingRayCast3D" type="RayCast3D" parent="PlayerMoveComponent/SlideNodes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 enabled = false
+target_position = Vector3(0, -0.1, 0)
 debug_shape_thickness = 5
-
-[node name="PlayerCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505, 0)
-fov = 100.0
-script = ExtResource("3_f18oa")
-
-[node name="FlipTimer" type="Timer" parent="PlayerCamera"]
-wait_time = 0.3
-
-[node name="Animations" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_xshnn")
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="StateLabel" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="PrevStateLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 
 [node name="AnimLabel" type="Label" parent="VBoxContainer"]

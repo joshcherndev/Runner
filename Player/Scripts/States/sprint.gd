@@ -5,6 +5,7 @@ extends State
 @export var crouch_state: State
 @export var jump_state: State
 @export var fall_state: State
+@export var climb_state: State
 
 @export var max_sprint_speed = 14.0
 @export var sprint_accel = 3.0
@@ -20,6 +21,8 @@ func process_input(event: InputEvent) -> State:
 		return idle_state
 	if get_jump() and parent.is_on_floor():
 		return jump_state
+	if get_climb():
+		return climb_state
 	
 	return null
 

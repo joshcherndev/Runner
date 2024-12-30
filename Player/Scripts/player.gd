@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-@onready var player_mover = $PlayerMover
 @onready var player_camera: Camera3D = $PlayerCamera
 
 @onready var standing_collision_shape_3d = $StandingCollisionShape3D
@@ -14,12 +13,14 @@ extends CharacterBody3D
 @export var mouse_sensitivity_v = 0.15
 
 @onready var state_label = $VBoxContainer/StateLabel
+@onready var prev_state_label = $VBoxContainer/PrevStateLabel
 @onready var anim_label = $VBoxContainer/AnimLabel
 @onready var velocity_label = $VBoxContainer/VelocityLabel
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	movement_state_machine.init(self, animations, player_move_component)
+	movement_state_machine.state_changed.connect(_update_state_text)
 	animations.current_animation_changed.connect(_update_amim_text)
 	anim_label.text = "Anim: " + animations.current_animation
 
@@ -48,18 +49,19 @@ func _process(delta):
 	movement_state_machine.process_frame(delta)
 	
 	# Logic for camera movement called here
-	player_camera.tilt_camera(player_mover.get_input_dir(), delta)
+	player_camera.tilt_camera(player_move_component.get_movement_direction(), delta)
 	
 	_update_velocity_text()
 
-func update_state_text(state: String) -> void:
-	state_label.text = 'State: ' + state
+func _update_state_text() -> void:
+	state_label.text = 'State: ' + movement_state_machine.current_state.name
+	prev_state_label.text = 'Prev State: ' + movement_state_machine.prev_state.name
 
 func _update_amim_text(anim: String):
 	anim_label.text = "Anim: " + anim
 
 func _update_velocity_text() -> void:
-	velocity_label.text = 'm/s (x/z, y): ' + '(' + str(hundredth(Vector2(self.velocity.x, self.velocity.z).length())) + ', ' + str(self.velocity.y) + ')'
+	velocity_label.text = 'm/s (x/z, y): ' + '(' + str(_hundredth(Vector2(self.velocity.x, self.velocity.z).length())) + ', ' + str(_hundredth(self.velocity.y)) + ')'
 
-func hundredth(num: float) -> float:
+func _hundredth(num: float) -> float:
 	return (int(num * 100.0)) / 100.0

@@ -5,6 +5,7 @@ extends State
 @export var crouch_state: State
 @export var jump_state: State
 @export var fall_state: State
+@export var climb_state: State
 
 @export var idle_drag: float = 0.4
 
@@ -17,6 +18,8 @@ func process_input(event: InputEvent) -> State:
 		return crouch_state
 	if get_jump() and parent.is_on_floor():
 		return jump_state
+	if get_climb():
+		return climb_state
 	return null
 
 func process_physics(delta: float) -> State:
@@ -25,11 +28,11 @@ func process_physics(delta: float) -> State:
 	
 	# Slow the parent down until they stop moving if their
 	# velocity vector is not Vector2.ZERO yet.
-	if not is_equal_approx(parent.velocity.length(), 0.0):
+	if parent.velocity.length() >= 0.0:
 		var flat_velo = parent.velocity
 		flat_velo.y = 0.0
 		parent.velocity -= flat_velo * idle_drag
-		parent.move_and_slide()
+	parent.move_and_slide()
 	
 	# Parent no longer has floor underneath, begin falling
 	if !parent.is_on_floor():
