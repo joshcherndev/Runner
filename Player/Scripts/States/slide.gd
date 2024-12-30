@@ -11,15 +11,18 @@ extends State
 @export var sliding_accel = 4.0
 @onready var sliding_drag = sliding_accel / max_sliding_speed
 
+var ground_normal = Vector3.ZERO
+
 @onready var sliding_ray_cast_3d = $SlidingRayCast3D
 
 func exit() -> void:
 	sliding_stamina = 1.0
+	ground_normal = Vector3.ZERO
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_released("crouch"):
 		return idle_state
-	if parent.is_on_floor() and Input.is_action_just_pressed("jump") and sliding_stamina < 0.35:
+	if parent.is_on_floor() and Input.is_action_just_pressed("jump") and (sliding_stamina < 0.35 or ground_normal.y <= 0.9):
 		return jump_state
 	
 	return null
@@ -41,7 +44,7 @@ func _handle_slide(delta: float) -> State:
 	sliding_ray_cast_3d.force_raycast_update()
 	
 	if sliding_ray_cast_3d.is_colliding():
-		var ground_normal = sliding_ray_cast_3d.get_collision_normal()
+		ground_normal = sliding_ray_cast_3d.get_collision_normal()
 		var flat_velo = parent.velocity
 		flat_velo.y = 0.0
 		var input_dir = get_movement_input()
