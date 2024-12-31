@@ -29,13 +29,13 @@ func process_input(event: InputEvent) -> State:
 
 func process_physics(delta: float) -> State:
 	if not parent.is_on_floor():
-		# 0.5 for not dropping off of ledges too fast
-		parent.velocity.y -= 0.5 * gravity * delta
+		# 0.7 for not dropping off of ledges too fast when sliding
+		parent.velocity.y -= 0.7 * gravity * delta
 	
 	var new_state = _handle_slide(delta)
 	if new_state:
 		return new_state
-	parent.move_and_slide()
+	# parent.move_and_slide()
 	
 	return null
 

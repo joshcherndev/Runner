@@ -50,7 +50,7 @@ func process_physics(delta: float) -> State:
 		if new_state: 
 			return new_state
 	
-	parent.move_and_slide()
+	# parent.move_and_slide()
 	return null
 
 func _climb():

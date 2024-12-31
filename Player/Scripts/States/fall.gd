@@ -53,7 +53,7 @@ func process_physics(delta: float) -> State:
 		else:
 			parent.velocity -= flat_velo * fall_drag
 	
-	parent.move_and_slide()
+	# parent.move_and_slide()
 	
 	if parent.is_on_floor():
 		if input_dir.length() != 0 and Input.is_action_pressed('sprint'):

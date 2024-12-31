@@ -8,7 +8,7 @@ extends Node3D
 @onready var ledge_detection_ray_cast_3d = $ClimbNodes/LedgeDetectionRayCast3D
 @onready var starting_sliding_ray_cast_3d = $SlideNodes/StartingSlidingRayCast3D
 
-const MAX_STEP_HEIGHT = 0.5
+const MAX_STEP_HEIGHT = 0.45
 var snapped_to_stairs_last_frame := false
 var last_frame_was_on_floor = -INF
 var snapped_to_floor = false
@@ -54,7 +54,7 @@ func wants_slide() -> bool:
 
 ## PLAYER MOVEMENT CORRECTIONS
 
-func _physics_process(delta):
+func process_movement_with_correction(delta):
 	if player.is_on_floor(): 
 		last_frame_was_on_floor = Engine.get_physics_frames()
 	
@@ -95,6 +95,9 @@ func snap_down_to_stairs_check():
 
 func snap_up_stairs_check(delta) -> bool:
 	if not player.is_on_floor() and not snapped_to_stairs_last_frame: 
+		return false
+	# Don't snap stairs if trying to jump, also no need to check for stairs ahead if not moving
+	if player.velocity.y > 0 or (player.velocity * Vector3(1, 0, 1)).length() == 0:
 		return false
 	var expected_move_motion = player.velocity * Vector3(1,0,1) * delta
 	var step_pos_with_clearance = player.global_transform.translated(expected_move_motion + Vector3(0, MAX_STEP_HEIGHT * 2, 0))

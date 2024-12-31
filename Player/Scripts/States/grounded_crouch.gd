@@ -37,7 +37,7 @@ func process_physics(delta: float) -> State:
 	flat_velo.y = 0.0
 	parent.velocity += crouch_accel * move_dir - flat_velo * crouch_drag
 	
-	parent.move_and_slide()
+	# parent.move_and_slide()
 	
 	# Parent no longer has floor underneath and
 	# not pressing crouch anymore, begin falling
