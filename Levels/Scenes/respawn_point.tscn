@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsqpi6ninpnh0"]
+
+[ext_resource type="Script" path="res://Levels/Scripts/respawn_point.gd" id="1_e6nej"]
+
+[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_jcrxl"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4pk3b"]
+points = PackedVector3Array(0.5, 0.5, 0, -0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, -0.5, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exrbr"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.187189, 0.500321, 0.580673, 0.670588)
+
+[sub_resource type="QuadMesh" id="QuadMesh_7nlk7"]
+
+[node name="RespawnPoint" type="Node3D"]
+script = ExtResource("1_e6nej")
+
+[node name="Point" type="RemoteTransform3D" parent="."]
+update_position = false
+update_rotation = false
+update_scale = false
+
+[node name="OutOfBoundsArea3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OutOfBoundsArea3D"]
+shape = SubResource("HeightMapShape3D_jcrxl")
+
+[node name="CheckpointArea3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CheckpointArea3D"]
+shape = SubResource("ConvexPolygonShape3D_4pk3b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CheckpointArea3D"]
+material_override = SubResource("StandardMaterial3D_exrbr")
+mesh = SubResource("QuadMesh_7nlk7")
