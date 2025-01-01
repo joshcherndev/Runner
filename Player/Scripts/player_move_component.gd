@@ -15,6 +15,7 @@ var snapped_to_floor = false
 
 @onready var stairs_ahead_ray_cast_3d = $StairsNodes/StairsAheadRayCast3D
 @onready var stairs_below_ray_cast_3d = $StairsNodes/StairsBelowRayCast3D
+@onready var stair_smoothing_remote_transform_3d: RemoteTransform3D = $StairsNodes/StairSmoothingRemoteTransform3D
 
 ## PLAYER INPUT HANDLING
 
@@ -66,6 +67,7 @@ func process_movement_with_correction(delta):
 		snap_down_to_stairs_check()
 	
 	snapped_to_floor = snapped_to_stairs_last_frame
+	_slide_camera_back_to_origin(delta)
 
 func run_body_test_motion(from: Transform3D, motion: Vector3, result = null) -> bool:
 	if not result: result = PhysicsTestMotionResult3D.new()
@@ -73,6 +75,24 @@ func run_body_test_motion(from: Transform3D, motion: Vector3, result = null) -> 
 	params.from = from
 	params.motion = motion
 	return PhysicsServer3D.body_test_motion(player.get_rid(), params, result)
+
+var _saved_camera_global_pos = null
+func _save_camera_pos_for_smoothing() -> void:
+	if _saved_camera_global_pos == null:
+		_saved_camera_global_pos = stair_smoothing_remote_transform_3d.global_position
+
+func _slide_camera_back_to_origin(delta: float) -> void:
+	if _saved_camera_global_pos == null: return
+	stair_smoothing_remote_transform_3d.global_position.y = _saved_camera_global_pos.y
+	# Clamp camera smoothing position in case of player teleport
+	stair_smoothing_remote_transform_3d.position.y = clampf(stair_smoothing_remote_transform_3d.position.y, -0.7, 0.7)
+	# 10.0 placeholder for default move_speed for player
+	var move_amount = max(player.velocity.y * delta, 10.0 / 2.0 * delta)
+	stair_smoothing_remote_transform_3d.position.y = move_toward(stair_smoothing_remote_transform_3d.position.y, 0.0, move_amount)
+	_saved_camera_global_pos = stair_smoothing_remote_transform_3d.global_position
+	if stair_smoothing_remote_transform_3d.position.y == 0:
+		# Stop smoothing camera null
+		_saved_camera_global_pos = null
 
 func snap_down_to_stairs_check():
 	var did_snap := false
@@ -86,6 +106,7 @@ func snap_down_to_stairs_check():
 	if not player.is_on_floor() and player.velocity.y <= 0 and (was_on_floor_last_frame or snapped_to_stairs_last_frame) and floor_below:
 		var body_test_result = PhysicsTestMotionResult3D.new()
 		if run_body_test_motion(player.global_transform, Vector3(0, -MAX_STEP_HEIGHT, 0), body_test_result):
+			_save_camera_pos_for_smoothing()
 			var translate_y = body_test_result.get_travel().y
 			player.position.y += translate_y
 			player.apply_floor_snap()
@@ -111,6 +132,7 @@ func snap_up_stairs_check(delta) -> bool:
 		stairs_ahead_ray_cast_3d.enabled = true
 		stairs_ahead_ray_cast_3d.force_raycast_update()
 		if stairs_ahead_ray_cast_3d.is_colliding() and not is_surface_too_steep(stairs_ahead_ray_cast_3d.get_collision_normal()):
+			_save_camera_pos_for_smoothing()
 			player.global_position = step_pos_with_clearance.origin + down_check_result.get_travel()
 			player.apply_floor_snap()
 			snapped_to_stairs_last_frame = true

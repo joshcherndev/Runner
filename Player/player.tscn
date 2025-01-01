@@ -340,6 +340,12 @@ target_position = Vector3(0, -0.45, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 target_position = Vector3(0, -1.25, 0)
 
+[node name="StairSmoothingRemoteTransform3D" type="RemoteTransform3D" parent="PlayerMoveComponent/StairsNodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.505, 0)
+top_level = true
+remote_path = NodePath("../../../PlayerCamera")
+update_scale = false
+
 [node name="PlayerCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505, 0)
 fov = 100.0
