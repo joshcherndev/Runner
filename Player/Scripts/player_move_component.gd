@@ -15,7 +15,7 @@ var snapped_to_floor = false
 
 @onready var stairs_ahead_ray_cast_3d = $StairsNodes/StairsAheadRayCast3D
 @onready var stairs_below_ray_cast_3d = $StairsNodes/StairsBelowRayCast3D
-@onready var stair_smoothing_remote_transform_3d: RemoteTransform3D = $StairsNodes/StairSmoothingRemoteTransform3D
+@onready var stair_smoothing_position_node: Node3D = $StairsNodes/StairSmoothingPositionNode
 
 ## PLAYER INPUT HANDLING
 
@@ -79,18 +79,19 @@ func run_body_test_motion(from: Transform3D, motion: Vector3, result = null) -> 
 var _saved_camera_global_pos = null
 func _save_camera_pos_for_smoothing() -> void:
 	if _saved_camera_global_pos == null:
-		_saved_camera_global_pos = stair_smoothing_remote_transform_3d.global_position
+		_saved_camera_global_pos = stair_smoothing_position_node.global_position
 
 func _slide_camera_back_to_origin(delta: float) -> void:
 	if _saved_camera_global_pos == null: return
-	stair_smoothing_remote_transform_3d.global_position.y = _saved_camera_global_pos.y
+	stair_smoothing_position_node.global_position.y = _saved_camera_global_pos.y
 	# Clamp camera smoothing position in case of player teleport
-	stair_smoothing_remote_transform_3d.position.y = clampf(stair_smoothing_remote_transform_3d.position.y, -0.7, 0.7)
+	stair_smoothing_position_node.position.y = clampf(stair_smoothing_position_node.position.y, -0.7, 0.7)
 	# 10.0 placeholder for default move_speed for player
 	var move_amount = max(player.velocity.y * delta, 10.0 / 2.0 * delta)
-	stair_smoothing_remote_transform_3d.position.y = move_toward(stair_smoothing_remote_transform_3d.position.y, 0.0, move_amount)
-	_saved_camera_global_pos = stair_smoothing_remote_transform_3d.global_position
-	if stair_smoothing_remote_transform_3d.position.y == 0:
+	print(_saved_camera_global_pos)
+	stair_smoothing_position_node.position.y = move_toward(stair_smoothing_position_node.position.y, 0.0, move_amount)
+	_saved_camera_global_pos = stair_smoothing_position_node.global_position
+	if stair_smoothing_position_node.position.y == 0:
 		# Stop smoothing camera null
 		_saved_camera_global_pos = null
 
@@ -111,7 +112,6 @@ func snap_down_to_stairs_check():
 			player.position.y += translate_y
 			player.apply_floor_snap()
 			did_snap = true
-			print("snapped down")
 	snapped_to_stairs_last_frame = did_snap
 
 func snap_up_stairs_check(delta) -> bool:
@@ -136,7 +136,6 @@ func snap_up_stairs_check(delta) -> bool:
 			player.global_position = step_pos_with_clearance.origin + down_check_result.get_travel()
 			player.apply_floor_snap()
 			snapped_to_stairs_last_frame = true
-			print("snapped up")
 			stairs_ahead_ray_cast_3d.enabled = false
 			return true
 	stairs_ahead_ray_cast_3d.enabled = false
