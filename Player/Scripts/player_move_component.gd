@@ -68,6 +68,7 @@ func process_movement_with_correction(delta):
 	
 	snapped_to_floor = snapped_to_stairs_last_frame
 	_slide_camera_back_to_origin(delta)
+	print(stair_smoothing_position_node.position)
 
 func run_body_test_motion(from: Transform3D, motion: Vector3, result = null) -> bool:
 	if not result: result = PhysicsTestMotionResult3D.new()
@@ -77,21 +78,23 @@ func run_body_test_motion(from: Transform3D, motion: Vector3, result = null) -> 
 	return PhysicsServer3D.body_test_motion(player.get_rid(), params, result)
 
 var _saved_camera_global_pos = null
+var smooth_pos = Vector3(0.0, 0.505, 0.0)
 func _save_camera_pos_for_smoothing() -> void:
 	if _saved_camera_global_pos == null:
 		_saved_camera_global_pos = stair_smoothing_position_node.global_position
 
+## Potential solution: change position being used to all global pos or just pos
 func _slide_camera_back_to_origin(delta: float) -> void:
 	if _saved_camera_global_pos == null: return
 	stair_smoothing_position_node.global_position.y = _saved_camera_global_pos.y
 	# Clamp camera smoothing position in case of player teleport
-	stair_smoothing_position_node.position.y = clampf(stair_smoothing_position_node.position.y, -0.7, 0.7)
+	stair_smoothing_position_node.position.y = clampf(stair_smoothing_position_node.position.y, -0.2,1.2)
 	# 10.0 placeholder for default move_speed for player
 	var move_amount = max(player.velocity.y * delta, 10.0 / 2.0 * delta)
-	print(_saved_camera_global_pos)
-	stair_smoothing_position_node.position.y = move_toward(stair_smoothing_position_node.position.y, 0.0, move_amount)
+	stair_smoothing_position_node.position.y = move_toward(stair_smoothing_position_node.position.y, 0.505, move_amount)
 	_saved_camera_global_pos = stair_smoothing_position_node.global_position
-	if stair_smoothing_position_node.position.y == 0:
+	player.player_camera.position.y = stair_smoothing_position_node.position.y
+	if stair_smoothing_position_node.position.y == 0.505:
 		# Stop smoothing camera null
 		_saved_camera_global_pos = null
 
