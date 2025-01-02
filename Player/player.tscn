@@ -330,6 +330,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 enabled = false
 debug_shape_thickness = 5
 
+[node name="StairsNodes" type="Node3D" parent="PlayerMoveComponent"]
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="PlayerMoveComponent/StairsNodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.505193, -0.629687)
+target_position = Vector3(0, -0.45, 0)
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="PlayerMoveComponent/StairsNodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+target_position = Vector3(0, -1.25, 0)
+
+[node name="StairSmoothingPositionNode" type="Node3D" parent="PlayerMoveComponent/StairsNodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505, 0)
+
 [node name="PlayerCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505, 0)
 fov = 100.0

@@ -42,7 +42,7 @@ func process_physics(delta: float) -> State:
 	flat_velo.y = 0.0
 	parent.velocity += sprint_accel * move_dir - flat_velo * sprint_drag
 	
-	parent.move_and_slide()
+	# parent.move_and_slide()
 	
 	# Parent no longer has floor underneath, begin falling
 	if !parent.is_on_floor():

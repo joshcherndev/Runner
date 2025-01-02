@@ -34,6 +34,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	movement_state_machine.process_physics(delta)
+	# This is where move_and_slide() is called
+	player_move_component.process_movement_with_correction(delta)
 
 func _process(delta):
 	# Enter full screen on 'f', go back to window on 'f'

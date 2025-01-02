@@ -32,7 +32,8 @@ func process_physics(delta: float) -> State:
 		var flat_velo = parent.velocity
 		flat_velo.y = 0.0
 		parent.velocity -= flat_velo * idle_drag
-	parent.move_and_slide()
+	
+	# parent.move_and_slide()
 	
 	# Parent no longer has floor underneath, begin falling
 	if !parent.is_on_floor():

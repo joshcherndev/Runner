@@ -24,7 +24,7 @@ func process_physics(delta: float) -> State:
 	if not parent.is_on_floor():
 		parent.velocity.y -= gravity * delta
 	
-	parent.move_and_slide()
+	# parent.move_and_slide()
 	
 	if Input.is_action_pressed("crouch") and parent.is_on_floor():
 		return grounded_crouch_state

@@ -1,6 +1,6 @@
 Node3D
+RemoteTransform3D
 MeshInstance3D
 CollisionShape3D
 Area3D
 Area2D
-RemoteTransform3D
