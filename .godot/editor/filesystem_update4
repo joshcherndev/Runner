@@ -1,10 +1,13 @@
-res://Levels/Scripts/recycle_wall.gd
-res://Levels/Scenes/kill_wall.tscn
-res://Levels/Scripts/kill_wall.gd
 res://Levels/level_0.tscn
 res://Levels/Scenes/respawn_point.tscn
 res://Levels/level.tscn
 res://Player/player.tscn
 res://Levels/Levels/demo_level.tscn
+res://Levels/Scenes/kill_wall.tscn
 res://Levels/moving_terrain.tscn
 res://Levels/moving_wall.tscn
+res://Player/Scripts/States/fall.gd
+res://Player/Scripts/States/idle.gd
+res://Player/Scripts/player_move_component.gd
+res://Player/Scripts/States/jump.gd
+res://Generic Components/Scripts/state.gd

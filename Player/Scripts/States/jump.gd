@@ -16,7 +16,7 @@ var sprinting
 
 func enter() -> void:
 	super()
-	parent.velocity.y += jump_force
+	parent.velocity.y = jump_force
 	sprinting = true
 
 func process_input(event: InputEvent) -> State:

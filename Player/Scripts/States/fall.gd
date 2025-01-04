@@ -25,6 +25,8 @@ func process_input(event: InputEvent) -> State:
 		return climb_state
 	if Input.is_action_pressed("crouch"):
 		return mid_air_crouch_state
+	if get_jump_during_fall():
+		return jump_state
 	
 	return null
 
@@ -52,8 +54,6 @@ func process_physics(delta: float) -> State:
 		# If no movement input detected, slow down velocity to a stop.
 		else:
 			parent.velocity -= flat_velo * fall_drag
-	
-	# parent.move_and_slide()
 	
 	if parent.is_on_floor():
 		if input_dir.length() != 0 and Input.is_action_pressed('sprint'):

@@ -5,6 +5,8 @@ extends Node3D
 
 @onready var player = get_parent()
 
+@onready var coyote_time_timer = $JumpNodes/CoyoteTimeTimer
+
 @onready var ledge_detection_ray_cast_3d = $ClimbNodes/LedgeDetectionRayCast3D
 @onready var starting_sliding_ray_cast_3d = $SlideNodes/StartingSlidingRayCast3D
 
@@ -24,9 +26,13 @@ var snapped_to_floor = false
 func get_movement_direction() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_forward", "move_backward").normalized()
 
-# Return a boolean indicating if the player wants to jump
+# Return a boolean indicating if the player wants to jump outside of fall state.
 func wants_jump() -> bool:
 	return Input.is_action_just_pressed('jump')
+
+# Return a boolean indicating if the player wants to jump during fall state.
+func wants_jump_during_fall() -> bool:
+	return Input.is_action_just_pressed('jump') and coyote_time_timer.time_left > 0.0
 
 func wants_climb() -> bool:
 	ledge_detection_ray_cast_3d.enabled = true
@@ -59,6 +65,8 @@ func process_movement_with_correction(delta):
 	if player.is_on_floor(): 
 		last_frame_was_on_floor = Engine.get_physics_frames()
 	
+	var was_on_floor = player.is_on_floor()
+	
 	if not snap_up_stairs_check(delta):
 		# snap_up_stairs_check moves the player manually, so don't call move_and_slide.
 		# should be fine as we ensure with body_test_motion that the player doesn't collide
@@ -66,9 +74,14 @@ func process_movement_with_correction(delta):
 		player.move_and_slide() 
 		snap_down_to_stairs_check()
 	
+	# For determining whether to give player grace period for jump input
+	# when they walk off of a ledge.
+	var just_left_ledge = was_on_floor and not player.is_on_floor() and player.velocity.y <= 0.0
+	if just_left_ledge:
+		coyote_time_timer.start()
+	
 	snapped_to_floor = snapped_to_stairs_last_frame
 	_slide_camera_back_to_origin(delta)
-	print(stair_smoothing_position_node.position)
 
 func run_body_test_motion(from: Transform3D, motion: Vector3, result = null) -> bool:
 	if not result: result = PhysicsTestMotionResult3D.new()
@@ -83,7 +96,6 @@ func _save_camera_pos_for_smoothing() -> void:
 	if _saved_camera_global_pos == null:
 		_saved_camera_global_pos = stair_smoothing_position_node.global_position
 
-## Potential solution: change position being used to all global pos or just pos
 func _slide_camera_back_to_origin(delta: float) -> void:
 	if _saved_camera_global_pos == null: return
 	stair_smoothing_position_node.global_position.y = _saved_camera_global_pos.y
