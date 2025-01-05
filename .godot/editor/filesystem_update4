@@ -13,3 +13,4 @@ res://Player/Scripts/States/sprint.gd
 res://Player/Scripts/States/walk.gd
 res://Player/Scripts/States/grounded_crouch.gd
 res://Player/Scripts/States/fall.gd
+res://Player/Scripts/player_move_component.gd

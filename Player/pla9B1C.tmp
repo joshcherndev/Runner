@@ -1,0 +1,380 @@
+[gd_scene load_steps=22 format=3 uid="uid://m7xendlceylm"]
+
+[ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_jgth1"]
+[ext_resource type="Script" path="res://Generic Components/Scripts/state_machine.gd" id="2_lhyg3"]
+[ext_resource type="Script" path="res://Player/Scripts/States/idle.gd" id="3_5cl7t"]
+[ext_resource type="Script" path="res://Player/Scripts/player_camera.gd" id="3_f18oa"]
+[ext_resource type="Script" path="res://Player/Scripts/States/walk.gd" id="4_kjhl5"]
+[ext_resource type="Script" path="res://Player/Scripts/States/sprint.gd" id="5_uu1jw"]
+[ext_resource type="Script" path="res://Player/Scripts/States/jump.gd" id="6_tv0aq"]
+[ext_resource type="Script" path="res://Player/Scripts/States/fall.gd" id="7_xm4d7"]
+[ext_resource type="Script" path="res://Player/Scripts/States/grounded_crouch.gd" id="8_uygg2"]
+[ext_resource type="Script" path="res://Player/Scripts/States/mid_air_crouch.gd" id="9_gkjp0"]
+[ext_resource type="Script" path="res://Player/Scripts/States/climb.gd" id="10_eqear"]
+[ext_resource type="Script" path="res://Player/Scripts/player_move_component.gd" id="11_unij8"]
+[ext_resource type="Script" path="res://Player/Scripts/States/slide.gd" id="11_yknwi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kyiye"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_guish"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1mtvr"]
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1k1xh"]
+height = 1.0
+
+[sub_resource type="Curve3D" id="Curve3D_ecdqq"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, -1),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Animation" id="Animation_hsbpd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerCamera:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.505, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CrouchingMeshInstance3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StandingMeshInstance3D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CrouchingCollisionShape3D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StandingCollisionShape3D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_64b1t"]
+resource_name = "crouch"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerCamera:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.495108, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CrouchingMeshInstance3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StandingMeshInstance3D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CrouchingCollisionShape3D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StandingCollisionShape3D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xshnn"]
+_data = {
+"RESET": SubResource("Animation_hsbpd"),
+"crouch": SubResource("Animation_64b1t")
+}
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+floor_constant_speed = true
+floor_block_on_wall = false
+floor_max_angle = 0.610865
+floor_snap_length = 1.0
+script = ExtResource("1_jgth1")
+
+[node name="StandingCollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_kyiye")
+
+[node name="StandingMeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999999, 0, 0, 0, 0.999997, 0, 0, 0, 0.999999, 0, 0, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_guish")
+
+[node name="CrouchingCollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("CapsuleShape3D_1mtvr")
+disabled = true
+
+[node name="CrouchingMeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_1k1xh")
+
+[node name="MovementStateMachine" type="Node3D" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_lhyg3")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("walk_state", "sprint_state", "crouch_state", "jump_state", "fall_state", "climb_state")]
+script = ExtResource("3_5cl7t")
+walk_state = NodePath("../Walk")
+sprint_state = NodePath("../Sprint")
+crouch_state = NodePath("../GroundedCrouch")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+climb_state = NodePath("../Climb")
+animation_name = "RESET"
+
+[node name="Walk" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "sprint_state", "crouch_state", "jump_state", "fall_state", "climb_state")]
+script = ExtResource("4_kjhl5")
+idle_state = NodePath("../Idle")
+sprint_state = NodePath("../Sprint")
+crouch_state = NodePath("../GroundedCrouch")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+climb_state = NodePath("../Climb")
+animation_name = "RESET"
+
+[node name="Sprint" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "crouch_state", "jump_state", "fall_state", "climb_state")]
+script = ExtResource("5_uu1jw")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+crouch_state = NodePath("../GroundedCrouch")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+climb_state = NodePath("../Climb")
+animation_name = "RESET"
+
+[node name="Jump" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "grounded_crouch_state", "mid_air_crouch_state", "fall_state", "climb_state")]
+script = ExtResource("6_tv0aq")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+sprint_state = NodePath("../Sprint")
+grounded_crouch_state = NodePath("../GroundedCrouch")
+mid_air_crouch_state = NodePath("../MidAirCrouch")
+fall_state = NodePath("../Fall")
+climb_state = NodePath("../Climb")
+animation_name = "RESET"
+
+[node name="Fall" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "jump_state", "grounded_crouch_state", "mid_air_crouch_state", "climb_state")]
+script = ExtResource("7_xm4d7")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+sprint_state = NodePath("../Sprint")
+jump_state = NodePath("../Jump")
+grounded_crouch_state = NodePath("../GroundedCrouch")
+mid_air_crouch_state = NodePath("../MidAirCrouch")
+climb_state = NodePath("../Climb")
+animation_name = "RESET"
+
+[node name="GroundedCrouch" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "jump_state", "fall_state", "mid_air_crouch", "climb_state")]
+script = ExtResource("8_uygg2")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+sprint_state = NodePath("../Sprint")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+mid_air_crouch = NodePath("../MidAirCrouch")
+climb_state = NodePath("../Climb")
+animation_name = "crouch"
+
+[node name="MidAirCrouch" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("grounded_crouch_state", "fall_state", "climb_state", "slide_state")]
+script = ExtResource("9_gkjp0")
+grounded_crouch_state = NodePath("../GroundedCrouch")
+fall_state = NodePath("../Fall")
+climb_state = NodePath("../Climb")
+slide_state = NodePath("../Slide")
+animation_name = "crouch"
+
+[node name="Climb" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "jump_state", "fall_state", "grounded_crouch_state", "mid_air_crouch_state")]
+script = ExtResource("10_eqear")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+sprint_state = NodePath("../Sprint")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+grounded_crouch_state = NodePath("../GroundedCrouch")
+mid_air_crouch_state = NodePath("../MidAirCrouch")
+animation_name = "RESET"
+
+[node name="AboveLedgeRayCast3D" type="RayCast3D" parent="MovementStateMachine/Climb"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+enabled = false
+target_position = Vector3(0, 0, -1)
+debug_shape_thickness = 5
+
+[node name="ClimbingTimer" type="Timer" parent="MovementStateMachine/Climb"]
+wait_time = 0.75
+one_shot = true
+
+[node name="VaultingPath3D" type="Path3D" parent="MovementStateMachine/Climb"]
+top_level = true
+curve = SubResource("Curve3D_ecdqq")
+
+[node name="VaultingPathFollow3D" type="PathFollow3D" parent="MovementStateMachine/Climb/VaultingPath3D"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0)
+loop = false
+
+[node name="VaultingPosition" type="Node3D" parent="MovementStateMachine/Climb/VaultingPath3D/VaultingPathFollow3D"]
+transform = Transform3D(-4.37113e-08, 0.999997, -4.37113e-08, 0, -4.37113e-08, -0.999999, -0.999999, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="Slide" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "grounded_crouch_state", "jump_state")]
+script = ExtResource("11_yknwi")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+sprint_state = NodePath("../Sprint")
+grounded_crouch_state = NodePath("../GroundedCrouch")
+jump_state = NodePath("../Jump")
+animation_name = "crouch"
+
+[node name="SlidingRayCast3D" type="RayCast3D" parent="MovementStateMachine/Slide"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+enabled = false
+debug_shape_thickness = 5
+
+[node name="PlayerMoveComponent" type="Node3D" parent="."]
+script = ExtResource("11_unij8")
+
+[node name="JumpNodes" type="Node3D" parent="PlayerMoveComponent"]
+
+[node name="CoyoteTimeTimer" type="Timer" parent="PlayerMoveComponent/JumpNodes"]
+wait_time = 0.2
+one_shot = true
+
+[node name="ClimbNodes" type="Node3D" parent="PlayerMoveComponent"]
+
+[node name="LedgeDetectionRayCast3D" type="RayCast3D" parent="PlayerMoveComponent/ClimbNodes"]
+enabled = false
+target_position = Vector3(0, 0, -1)
+debug_shape_thickness = 5
+
+[node name="SlideNodes" type="Node3D" parent="PlayerMoveComponent"]
+
+[node name="StartingSlidingRayCast3D" type="RayCast3D" parent="PlayerMoveComponent/SlideNodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+enabled = false
+debug_shape_thickness = 5
+
+[node name="StairsNodes" type="Node3D" parent="PlayerMoveComponent"]
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="PlayerMoveComponent/StairsNodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.505193, -0.629687)
+target_position = Vector3(0, -0.45, 0)
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="PlayerMoveComponent/StairsNodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+target_position = Vector3(0, -0.5, 0)
+
+[node name="StairSmoothingPositionNode" type="Node3D" parent="PlayerMoveComponent/StairsNodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505, 0)
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505, 0)
+fov = 100.0
+script = ExtResource("3_f18oa")
+
+[node name="FlipTimer" type="Timer" parent="PlayerCamera"]
+wait_time = 0.3
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xshnn")
+}
+autoplay = "RESET"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StateLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PrevStateLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="AnimLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="VelocityLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2

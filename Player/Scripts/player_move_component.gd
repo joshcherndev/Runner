@@ -91,7 +91,6 @@ func run_body_test_motion(from: Transform3D, motion: Vector3, result = null) -> 
 	return PhysicsServer3D.body_test_motion(player.get_rid(), params, result)
 
 var _saved_camera_global_pos = null
-var smooth_pos = Vector3(0.0, 0.505, 0.0)
 func _save_camera_pos_for_smoothing() -> void:
 	if _saved_camera_global_pos == null:
 		_saved_camera_global_pos = stair_smoothing_position_node.global_position
@@ -102,11 +101,12 @@ func _slide_camera_back_to_origin(delta: float) -> void:
 	# Clamp camera smoothing position in case of player teleport
 	stair_smoothing_position_node.position.y = clampf(stair_smoothing_position_node.position.y, -0.2,1.2)
 	# 10.0 placeholder for default move_speed for player
-	var move_amount = max(player.velocity.y * delta, 10.0 / 2.0 * delta)
+	var move_amount = max(player.velocity.y * delta, 15.0 / 2.0 * delta)
 	stair_smoothing_position_node.position.y = move_toward(stair_smoothing_position_node.position.y, 0.505, move_amount)
 	_saved_camera_global_pos = stair_smoothing_position_node.global_position
 	player.player_camera.position.y = stair_smoothing_position_node.position.y
-	if stair_smoothing_position_node.position.y == 0.505:
+	print(stair_smoothing_position_node.position.y)
+	if is_equal_approx(player.player_camera.position.y, 0.505):
 		# Stop smoothing camera null
 		_saved_camera_global_pos = null
 
@@ -127,6 +127,7 @@ func snap_down_to_stairs_check():
 			player.position.y += translate_y
 			player.apply_floor_snap()
 			did_snap = true
+			print("snapped down")
 	snapped_to_stairs_last_frame = did_snap
 
 func snap_up_stairs_check(delta) -> bool:
@@ -152,6 +153,7 @@ func snap_up_stairs_check(delta) -> bool:
 			player.apply_floor_snap()
 			snapped_to_stairs_last_frame = true
 			stairs_ahead_ray_cast_3d.enabled = false
+			print("snapped up")
 			return true
 	stairs_ahead_ray_cast_3d.enabled = false
 	return false
