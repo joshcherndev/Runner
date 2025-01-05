@@ -12,7 +12,7 @@ extends State
 @onready var climbing_timer = $ClimbingTimer
 @onready var vaulting_path_3d = $VaultingPath3D
 @onready var vaulting_path_follow_3d = $VaultingPath3D/VaultingPathFollow3D
-@onready var vaulting_remote_transform_3d = $VaultingPath3D/VaultingPathFollow3D/VaultingRemoteTransform3D
+@onready var vaulting_position = $VaultingPath3D/VaultingPathFollow3D/VaultingPosition
 
 @export var climb_speed = 5.0
 @export var climbing_buildup = 0.0
@@ -50,7 +50,6 @@ func process_physics(delta: float) -> State:
 		if new_state: 
 			return new_state
 	
-	# parent.move_and_slide()
 	return null
 
 func _climb():
@@ -106,7 +105,7 @@ func _vault_over_ledge() -> State:
 		
 		return idle_state
 	vaulting_path_follow_3d.progress_ratio += vault_speed
-	parent.global_position = vaulting_remote_transform_3d.global_position
+	parent.global_position = vaulting_position.global_position
 	
 	return null
 

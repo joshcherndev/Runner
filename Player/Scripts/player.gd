@@ -27,7 +27,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	movement_state_machine.process_input(event)
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotation_degrees.y -= event.relative.x * mouse_sensitivity_h
 		player_camera.rotation_degrees.x -= event.relative.y * mouse_sensitivity_v
 		player_camera.rotation_degrees.x = clamp(player_camera.rotation_degrees.x, -90, 90)
@@ -45,9 +45,13 @@ func _process(delta):
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	# Quit game on 'esc'
+	# Change mouse mode on 'esc'
 	if Input.is_action_just_pressed("exit"):
-		get_tree().quit()
+		var mm = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
+		if mm:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	movement_state_machine.process_frame(delta)
 	

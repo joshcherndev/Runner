@@ -315,6 +315,8 @@ debug_shape_thickness = 5
 
 [node name="PlayerMoveComponent" type="Node3D" parent="."]
 script = ExtResource("11_unij8")
+speed_required_for_slide = null
+steepness_for_slide = null
 
 [node name="JumpNodes" type="Node3D" parent="PlayerMoveComponent"]
 
@@ -344,7 +346,7 @@ target_position = Vector3(0, -0.45, 0)
 
 [node name="StairsBelowRayCast3D" type="RayCast3D" parent="PlayerMoveComponent/StairsNodes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-target_position = Vector3(0, -1.25, 0)
+target_position = Vector3(0, -0.5, 0)
 
 [node name="StairSmoothingPositionNode" type="Node3D" parent="PlayerMoveComponent/StairsNodes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505, 0)
