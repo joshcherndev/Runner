@@ -34,6 +34,9 @@ func get_movement_input() -> Vector2:
 func get_jump() -> bool:
 	return move_component.wants_jump()
 
+func get_jump_during_fall() -> bool:
+	return move_component.wants_jump_during_fall()
+
 func get_climb() -> bool:
 	return move_component.wants_climb()
 

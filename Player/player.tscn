@@ -316,6 +316,12 @@ debug_shape_thickness = 5
 [node name="PlayerMoveComponent" type="Node3D" parent="."]
 script = ExtResource("11_unij8")
 
+[node name="JumpNodes" type="Node3D" parent="PlayerMoveComponent"]
+
+[node name="CoyoteTimeTimer" type="Timer" parent="PlayerMoveComponent/JumpNodes"]
+wait_time = 0.2
+one_shot = true
+
 [node name="ClimbNodes" type="Node3D" parent="PlayerMoveComponent"]
 
 [node name="LedgeDetectionRayCast3D" type="RayCast3D" parent="PlayerMoveComponent/ClimbNodes"]
