@@ -8,3 +8,8 @@ res://Levels/moving_terrain.tscn
 res://Levels/moving_wall.tscn
 res://Player/Scripts/player.gd
 res://Player/Scripts/States/climb.gd
+res://Player/Scripts/States/slide.gd
+res://Player/Scripts/States/sprint.gd
+res://Player/Scripts/States/walk.gd
+res://Player/Scripts/States/grounded_crouch.gd
+res://Player/Scripts/States/fall.gd

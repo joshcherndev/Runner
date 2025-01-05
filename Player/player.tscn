@@ -299,9 +299,11 @@ loop = false
 [node name="VaultingPosition" type="Node3D" parent="MovementStateMachine/Climb/VaultingPath3D/VaultingPathFollow3D"]
 transform = Transform3D(-4.37113e-08, 0.999997, -4.37113e-08, 0, -4.37113e-08, -0.999999, -0.999999, -4.37113e-08, 1.91068e-15, 0, 0, 0)
 
-[node name="Slide" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "grounded_crouch_state", "jump_state")]
+[node name="Slide" type="Node3D" parent="MovementStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "sprint_state", "grounded_crouch_state", "jump_state")]
 script = ExtResource("11_yknwi")
 idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+sprint_state = NodePath("../Sprint")
 grounded_crouch_state = NodePath("../GroundedCrouch")
 jump_state = NodePath("../Jump")
 animation_name = "crouch"

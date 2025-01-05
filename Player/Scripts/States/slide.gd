@@ -1,6 +1,8 @@
 extends State
 
 @export var idle_state: State
+@export var walk_state: State
+@export var sprint_state: State
 @export var grounded_crouch_state: State
 @export var jump_state: State
 
@@ -21,6 +23,11 @@ func exit() -> void:
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_released("crouch"):
+		if Input.is_action_pressed('sprint') and Input.is_action_pressed('move_forward'):
+			return sprint_state
+		if get_movement_input().length() != 0.0:
+			return walk_state
+		
 		return idle_state
 	if parent.is_on_floor() and Input.is_action_just_pressed("jump") and (sliding_stamina < 0.35 or ground_normal.y <= 0.9):
 		return jump_state
@@ -35,7 +42,6 @@ func process_physics(delta: float) -> State:
 	var new_state = _handle_slide(delta)
 	if new_state:
 		return new_state
-	# parent.move_and_slide()
 	
 	return null
 
