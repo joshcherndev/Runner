@@ -1,5 +1,6 @@
 extends State
 
+# States that are possible to transition to from fall.
 @export var idle_state: State
 @export var walk_state: State
 @export var sprint_state: State

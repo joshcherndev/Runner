@@ -1,5 +1,6 @@
 extends State
 
+# States that are possible to transition to from mid-air crouch.
 @export var grounded_crouch_state: State
 @export var fall_state: State
 @export var climb_state: State

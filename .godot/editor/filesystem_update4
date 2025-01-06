@@ -10,3 +10,12 @@ res://Levels/Levels/demo_level.tscn
 res://Levels/Scenes/kill_wall.tscn
 res://Levels/moving_terrain.tscn
 res://Levels/moving_wall.tscn
+res://Player/Scripts/States/idle.gd
+res://Player/Scripts/States/walk.gd
+res://Player/Scripts/States/sprint.gd
+res://Player/Scripts/States/jump.gd
+res://Player/Scripts/States/fall.gd
+res://Player/Scripts/States/grounded_crouch.gd
+res://Player/Scripts/States/mid_air_crouch.gd
+res://Player/Scripts/States/climb.gd
+res://Player/Scripts/States/slide.gd

@@ -1,5 +1,8 @@
 extends State
 
+## Walking state which enables the player to move around with a walk.
+
+# States that are possible to transition to from walk.
 @export var idle_state: State
 @export var sprint_state: State
 @export var crouch_state: State
@@ -7,6 +10,8 @@ extends State
 @export var fall_state: State
 @export var climb_state: State
 
+# Control fastest a player is able to move while walking,
+# how fast they reach that speed, and how fast they slow down.
 @export var max_walk_speed = 10.0
 @export var walk_accel = 1.0
 @onready var walk_drag = walk_accel / max_walk_speed
@@ -35,6 +40,7 @@ func process_physics(delta: float) -> State:
 	if move_dir.length() == 0:
 		return idle_state
 	
+	# Update only the horizontal velocity
 	var flat_velo = parent.velocity
 	flat_velo.y = 0.0
 	parent.velocity += walk_accel * move_dir - flat_velo * walk_drag

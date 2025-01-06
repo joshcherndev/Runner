@@ -1,5 +1,6 @@
 extends State
 
+# States that are possible to transition to from slide.
 @export var idle_state: State
 @export var walk_state: State
 @export var sprint_state: State
@@ -18,6 +19,7 @@ var ground_normal = Vector3.ZERO
 @onready var sliding_ray_cast_3d = $SlidingRayCast3D
 
 func exit() -> void:
+	# Reset sliding stamina
 	sliding_stamina = 1.0
 	ground_normal = Vector3.ZERO
 
@@ -27,8 +29,9 @@ func process_input(event: InputEvent) -> State:
 			return sprint_state
 		if get_movement_input().length() != 0.0:
 			return walk_state
-		
 		return idle_state
+	
+	# "sliding_stamina < 0.35 or ground_normal.y <= 0.9" limit jumps to prevent infinite sliding
 	if parent.is_on_floor() and Input.is_action_just_pressed("jump") and (sliding_stamina < 0.35 or ground_normal.y <= 0.9):
 		return jump_state
 	

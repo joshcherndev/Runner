@@ -1,5 +1,9 @@
 extends State
 
+## Idle state for player which is the default state when no inputs and
+## no gravity is being applied.
+
+# States that are possible to transition to from idle.
 @export var walk_state: State
 @export var sprint_state: State
 @export var crouch_state: State
@@ -7,6 +11,7 @@ extends State
 @export var fall_state: State
 @export var climb_state: State
 
+# Controls how fast the player slows down when in this state
 @export var idle_drag: float = 0.4
 
 func process_input(event: InputEvent) -> State:
@@ -29,6 +34,7 @@ func process_physics(delta: float) -> State:
 	# Slow the parent down until they stop moving if their
 	# velocity vector is not Vector2.ZERO yet.
 	if parent.velocity.length() >= 0.0:
+		# Update only the horizontal velocity
 		var flat_velo = parent.velocity
 		flat_velo.y = 0.0
 		parent.velocity -= flat_velo * idle_drag

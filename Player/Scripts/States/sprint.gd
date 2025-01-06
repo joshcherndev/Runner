@@ -1,5 +1,8 @@
 extends State
 
+## Sprinting state which enables the player to move around with at a sprint speed
+
+# States that are possible to transition to from sprint.
 @export var idle_state: State
 @export var walk_state: State
 @export var crouch_state: State
@@ -7,6 +10,8 @@ extends State
 @export var fall_state: State
 @export var climb_state: State
 
+# Control fastest a player is able to move while sprinting,
+# how fast they reach that speed, and how fast they slow down.
 @export var max_sprint_speed = 14.0
 @export var sprint_accel = 3.0
 @onready var sprint_drag = sprint_accel / max_sprint_speed
@@ -38,6 +43,7 @@ func process_physics(delta: float) -> State:
 	if move_dir.length() == 0:
 		return idle_state
 	
+	# Update only the horizontal velocity
 	var flat_velo = parent.velocity
 	flat_velo.y = 0.0
 	parent.velocity += sprint_accel * move_dir - flat_velo * sprint_drag
