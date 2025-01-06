@@ -1,5 +1,7 @@
 extends Node3D
 
+## Handles state transitions and state processing for inputs, frames, and physics frames
+
 @export var starting_state: State
 
 var prev_state: State
@@ -23,6 +25,7 @@ func change_state(new_state: State) -> void:
 	if current_state:
 		current_state.exit()
 	
+	# Save the soon-to-be previous state for reference in state transition logic
 	prev_state = current_state
 	current_state = new_state
 	current_state.enter()
