@@ -1,20 +1,26 @@
 extends Node3D
 
+## Handles movement input request processing and movement corrections
+## like stair handling and calling player.move_and_slide() 
+
+# Parameters for sliding to go through
 @export var speed_required_for_slide: float = 16.0
 @export var steepness_for_slide: float = 0.925
+@onready var starting_sliding_ray_cast_3d = $SlideNodes/StartingSlidingRayCast3D
 
 @onready var player = get_parent()
 
+# Grace period timer for a jump input happening just after leaving edge
 @onready var coyote_time_timer = $JumpNodes/CoyoteTimeTimer
-
 @onready var ledge_detection_ray_cast_3d = $ClimbNodes/LedgeDetectionRayCast3D
-@onready var starting_sliding_ray_cast_3d = $SlideNodes/StartingSlidingRayCast3D
 
+# Values for stair snapping
 const MAX_STEP_HEIGHT = 0.45
 var snapped_to_stairs_last_frame := false
 var last_frame_was_on_floor = -INF
 var snapped_to_floor = false
 
+# References for stair snapping and camera smoothing on stair snap
 @onready var stairs_ahead_ray_cast_3d = $StairsNodes/StairsAheadRayCast3D
 @onready var stairs_below_ray_cast_3d = $StairsNodes/StairsBelowRayCast3D
 @onready var stair_smoothing_position_node: Node3D = $StairsNodes/StairSmoothingPositionNode
@@ -26,14 +32,15 @@ var snapped_to_floor = false
 func get_movement_direction() -> Vector2:
 	return Input.get_vector("move_left", "move_right", "move_forward", "move_backward").normalized()
 
-# Return a boolean indicating if the player wants to jump outside of fall state.
+# Return a boolean indicating if the player can jump outside of fall state.
 func wants_jump() -> bool:
 	return Input.is_action_just_pressed('jump')
 
-# Return a boolean indicating if the player wants to jump during fall state.
+# Return a boolean indicating if the player can jump during fall state.
 func wants_jump_during_fall() -> bool:
 	return Input.is_action_just_pressed('jump') and coyote_time_timer.time_left > 0.0
 
+# Return a boolean indicating if the player can climb.
 func wants_climb() -> bool:
 	ledge_detection_ray_cast_3d.enabled = true
 	ledge_detection_ray_cast_3d.force_raycast_update()
@@ -45,6 +52,7 @@ func wants_climb() -> bool:
 		ledge_detection_ray_cast_3d.enabled = false
 		return false
 
+# Return a boolean indicating if the player can slide.
 func wants_slide() -> bool:
 	starting_sliding_ray_cast_3d.enabled = true
 	starting_sliding_ray_cast_3d.force_raycast_update()
@@ -61,6 +69,8 @@ func wants_slide() -> bool:
 
 ## PLAYER MOVEMENT CORRECTIONS
 
+# Called every physics frame in player, handling updating position of the player
+# each physics frame on stair snap, coyote jump, and camera smoothing
 func process_movement_with_correction(delta):
 	if player.is_on_floor(): 
 		last_frame_was_on_floor = Engine.get_physics_frames()
@@ -83,6 +93,7 @@ func process_movement_with_correction(delta):
 	snapped_to_floor = snapped_to_stairs_last_frame
 	_slide_camera_back_to_origin(delta)
 
+# Test the result of a transformation done on the player
 func run_body_test_motion(from: Transform3D, motion: Vector3, result = null) -> bool:
 	if not result: result = PhysicsTestMotionResult3D.new()
 	var params = PhysicsTestMotionParameters3D.new()

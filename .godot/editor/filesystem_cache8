@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1736148836
+::res://::1736234680
 icon.svg::CompressedTexture2D::9140232253116174670::1735957102::1735957167::1::::<><>::
 ::res://Environment/::1735957102
 ::res://Environment/Materials/::1735957102
@@ -35,14 +35,14 @@ texture_11.png::CompressedTexture2D::365515397592051169::1735957102::1735957167:
 texture_12.png::CompressedTexture2D::1029989668589892879::1735957102::1735957167::1::::<><>::
 texture_13.png::CompressedTexture2D::6686491723444806458::1735957102::1735957167::1::::<><>::
 ::res://Generic Components/::1735957102
-::res://Generic Components/Scripts/::1735959128
-state.gd::GDScript::-1::1735959128::0::1::::State<>Node3D<>::
-state_machine.gd::GDScript::-1::1735957102::0::1::::<>Node3D<>::
-::res://Levels/::1736069016
-level.tscn::PackedScene::6436841973881938489::1736048543::0::1::::<><>::res://Levels/Scripts/level.gd<>uid://m7xendlceylm::::res://Player/player.tscn<>uid://cxnv2l2hjdvb6::::res://Environment/Materials/dark_grid.tres<>uid://bavo6ltbadqrr::::res://Levels/moving_wall.tscn<>uid://bsqpi6ninpnh0::::res://Levels/Scenes/respawn_point.tscn
-level_0.tscn::PackedScene::7096703765932367929::1736069016::0::1::::<><>::uid://cxnv2l2hjdvb6::::res://Environment/Materials/dark_grid.tres<>uid://m7xendlceylm::::res://Player/player.tscn<>uid://bavo6ltbadqrr::::res://Levels/moving_wall.tscn<>uid://dxg6u4dvx0rwc::::res://Levels/Assets/obstacle_tube.tscn<>uid://mcsocrr87kc6::::res://Levels/Scenes/kill_wall.tscn
-moving_terrain.tscn::PackedScene::5172492499284695047::1736048543::0::1::::<><>::res://Levels/Scripts/moving_terrain.gd
-moving_wall.tscn::PackedScene::2430678621191846539::1736048543::0::1::::<><>::uid://cfxugwj4ix3hr::::res://Levels/moving_terrain.tscn
+::res://Generic Components/Scripts/::1736149679
+state.gd::GDScript::-1::1736149542::0::1::::State<>Node3D<>::
+state_machine.gd::GDScript::-1::1736149679::0::1::::<>Node3D<>::
+::res://Levels/::1736150222
+level.tscn::PackedScene::6436841973881938489::1736150221::0::1::::<><>::res://Levels/Scripts/level.gd<>uid://m7xendlceylm::::res://Player/player.tscn<>uid://cxnv2l2hjdvb6::::res://Environment/Materials/dark_grid.tres<>uid://bavo6ltbadqrr::::res://Levels/moving_wall.tscn<>uid://bsqpi6ninpnh0::::res://Levels/Scenes/respawn_point.tscn
+level_0.tscn::PackedScene::7096703765932367929::1736150221::0::1::::<><>::uid://cxnv2l2hjdvb6::::res://Environment/Materials/dark_grid.tres<>uid://m7xendlceylm::::res://Player/player.tscn<>uid://bavo6ltbadqrr::::res://Levels/moving_wall.tscn<>uid://dxg6u4dvx0rwc::::res://Levels/Assets/obstacle_tube.tscn<>uid://mcsocrr87kc6::::res://Levels/Scenes/kill_wall.tscn
+moving_terrain.tscn::PackedScene::5172492499284695047::1736150222::0::1::::<><>::res://Levels/Scripts/moving_terrain.gd
+moving_wall.tscn::PackedScene::2430678621191846539::1736150222::0::1::::<><>::uid://cfxugwj4ix3hr::::res://Levels/moving_terrain.tscn
 ::res://Levels/Assets/::1735957102
 obstacle_tube.tscn::PackedScene::8787911192729715018::1735957102::0::1::::<><>::uid://d0qgpqrutctps::::res://Levels/Assets/Blender/tube.tscn<>res://Levels/Assets/Scripts/spinning_in_tube.gd<>uid://byp5n2w25ycf7::::res://Levels/Assets/Blender/cross.tscn
 ::res://Levels/Assets/Blender/::1735957102
@@ -51,31 +51,31 @@ demo_level.tscn::PackedScene::4173232866250693372::1735957102::0::1::::<><>::uid
 tube.tscn::PackedScene::8947405142529718748::1735957102::0::1::::<><>::uid://bo86tqo1orqxy::::res://Levels/Assets/Blender/tube.blend<>uid://cxnv2l2hjdvb6::::res://Environment/Materials/dark_grid.tres
 ::res://Levels/Assets/Scripts/::1735957102
 spinning_in_tube.gd::GDScript::-1::1735957102::0::1::::<>Node3D<>::
-::res://Levels/Levels/::1736048543
-demo_level.tscn::PackedScene::3575587548056858036::1736048543::0::1::::<><>::uid://dkrtjwfi42cyu::::res://Levels/Assets/Blender/demo_level.blend<>uid://cxnv2l2hjdvb6::::res://Environment/Materials/dark_grid.tres<>res://Levels/Scripts/wave_floor.gd<>uid://bavo6ltbadqrr::::res://Levels/moving_wall.tscn<>uid://c6lpu50dpcpc3::::res://Environment/Materials/orange_grid.tres<>uid://m7xendlceylm::::res://Player/player.tscn
-::res://Levels/Scenes/::1736048543
-kill_wall.tscn::PackedScene::847512918275119099::1736048543::0::1::::<><>::res://Levels/Scripts/kill_wall.gd
-respawn_point.tscn::PackedScene::3683776603173148995::1736048542::0::1::::<><>::res://Levels/Scripts/respawn_point.gd
-::res://Levels/Scripts/::1735957102
-kill_wall.gd::GDScript::-1::1735957102::0::1::::<>Node3D<>::
+::res://Levels/Levels/::1736150222
+demo_level.tscn::PackedScene::3575587548056858036::1736150222::0::1::::<><>::uid://dkrtjwfi42cyu::::res://Levels/Assets/Blender/demo_level.blend<>uid://cxnv2l2hjdvb6::::res://Environment/Materials/dark_grid.tres<>res://Levels/Scripts/wave_floor.gd<>uid://bavo6ltbadqrr::::res://Levels/moving_wall.tscn<>uid://c6lpu50dpcpc3::::res://Environment/Materials/orange_grid.tres<>uid://m7xendlceylm::::res://Player/player.tscn
+::res://Levels/Scenes/::1736150222
+kill_wall.tscn::PackedScene::847512918275119099::1736150222::0::1::::<><>::res://Levels/Scripts/kill_wall.gd
+respawn_point.tscn::PackedScene::3683776603173148995::1736150221::0::1::::<><>::res://Levels/Scripts/respawn_point.gd
+::res://Levels/Scripts/::1736149716
+kill_wall.gd::GDScript::-1::1736149716::0::1::::<>Node3D<>::
 level.gd::GDScript::-1::1735957102::0::1::::Level<>Node3D<>::
 moving_terrain.gd::GDScript::-1::1735957102::0::1::::MovingTerrain<>Node3D<>::
 respawn_point.gd::GDScript::-1::1735957102::0::1::::RespawnPoint<>Node3D<>::
 wave_floor.gd::GDScript::-1::1735957102::0::1::::<>Node3D<>::
-::res://Player/::1736048543
-player.tscn::PackedScene::909730533736162498::1736048543::0::1::::<><>::res://Player/Scripts/player.gd<>res://Generic Components/Scripts/state_machine.gd<>res://Player/Scripts/States/idle.gd<>res://Player/Scripts/player_camera.gd<>res://Player/Scripts/States/walk.gd<>res://Player/Scripts/States/sprint.gd<>res://Player/Scripts/States/jump.gd<>res://Player/Scripts/States/fall.gd<>res://Player/Scripts/States/grounded_crouch.gd<>res://Player/Scripts/States/mid_air_crouch.gd<>res://Player/Scripts/States/climb.gd<>res://Player/Scripts/player_move_component.gd<>res://Player/Scripts/States/slide.gd
-::res://Player/Scripts/::1736048524
-player.gd::GDScript::-1::1736040854::0::1::::Player<>CharacterBody3D<>::
+::res://Player/::1736152263
+player.tscn::PackedScene::909730533736162498::1736152263::0::1::::<><>::res://Player/Scripts/player.gd<>res://Generic Components/Scripts/state_machine.gd<>res://Player/Scripts/States/idle.gd<>res://Player/Scripts/player_camera.gd<>res://Player/Scripts/States/walk.gd<>res://Player/Scripts/States/sprint.gd<>res://Player/Scripts/States/jump.gd<>res://Player/Scripts/States/fall.gd<>res://Player/Scripts/States/grounded_crouch.gd<>res://Player/Scripts/States/mid_air_crouch.gd<>res://Player/Scripts/States/climb.gd<>res://Player/Scripts/player_move_component.gd<>res://Player/Scripts/States/slide.gd
+::res://Player/Scripts/::1736150248
+player.gd::GDScript::-1::1736150248::0::1::::Player<>CharacterBody3D<>::
 player_camera.gd::GDScript::-1::1735957102::0::1::::<>Camera3D<>::
 player_move_component.gd::GDScript::-1::1736048524::0::1::::<>Node3D<>::
 stairs_component.gd::GDScript::-1::1735957102::0::1::::StairsComponent<>Node3D<>::
-::res://Player/Scripts/States/::1736045416
-climb.gd::GDScript::-1::1736044547::0::1::::<>State<>::
-fall.gd::GDScript::-1::1736045416::0::1::::<>State<>::
-grounded_crouch.gd::GDScript::-1::1736045151::0::1::::<>State<>::
-idle.gd::GDScript::-1::1735957610::0::1::::<>State<>::
-jump.gd::GDScript::-1::1735958965::0::1::::<>State<>::
-mid_air_crouch.gd::GDScript::-1::1735957102::0::1::::<>State<>::
-slide.gd::GDScript::-1::1736045248::0::1::::<>State<>::
-sprint.gd::GDScript::-1::1736044947::0::1::::<>State<>::
-walk.gd::GDScript::-1::1736044947::0::1::::<>State<>::
+::res://Player/Scripts/States/::1736152263
+climb.gd::GDScript::-1::1736151808::0::1::::<>State<>::
+fall.gd::GDScript::-1::1736151756::0::1::::<>State<>::
+grounded_crouch.gd::GDScript::-1::1736151767::0::1::::<>State<>::
+idle.gd::GDScript::-1::1736151680::0::1::::<>State<>::
+jump.gd::GDScript::-1::1736151743::0::1::::<>State<>::
+mid_air_crouch.gd::GDScript::-1::1736151788::0::1::::<>State<>::
+slide.gd::GDScript::-1::1736152263::0::1::::<>State<>::
+sprint.gd::GDScript::-1::1736151722::0::1::::<>State<>::
+walk.gd::GDScript::-1::1736151677::0::1::::<>State<>::
