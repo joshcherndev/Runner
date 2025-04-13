@@ -1,18 +1,18 @@
 [gd_scene load_steps=22 format=3 uid="uid://m7xendlceylm"]
 
-[ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_jgth1"]
-[ext_resource type="Script" path="res://Generic Components/Scripts/state_machine.gd" id="2_lhyg3"]
-[ext_resource type="Script" path="res://Player/Scripts/States/idle.gd" id="3_5cl7t"]
-[ext_resource type="Script" path="res://Player/Scripts/player_camera.gd" id="3_f18oa"]
-[ext_resource type="Script" path="res://Player/Scripts/States/walk.gd" id="4_kjhl5"]
-[ext_resource type="Script" path="res://Player/Scripts/States/sprint.gd" id="5_uu1jw"]
-[ext_resource type="Script" path="res://Player/Scripts/States/jump.gd" id="6_tv0aq"]
-[ext_resource type="Script" path="res://Player/Scripts/States/fall.gd" id="7_xm4d7"]
-[ext_resource type="Script" path="res://Player/Scripts/States/grounded_crouch.gd" id="8_uygg2"]
-[ext_resource type="Script" path="res://Player/Scripts/States/mid_air_crouch.gd" id="9_gkjp0"]
-[ext_resource type="Script" path="res://Player/Scripts/States/climb.gd" id="10_eqear"]
-[ext_resource type="Script" path="res://Player/Scripts/player_move_component.gd" id="11_unij8"]
-[ext_resource type="Script" path="res://Player/Scripts/States/slide.gd" id="11_yknwi"]
+[ext_resource type="Script" uid="uid://dy1rji50wuwp1" path="res://Player/Scripts/player.gd" id="1_jgth1"]
+[ext_resource type="Script" uid="uid://cmhpxphswn3dd" path="res://Generic Components/Scripts/state_machine.gd" id="2_lhyg3"]
+[ext_resource type="Script" uid="uid://b5j2k3k7yi7a7" path="res://Player/Scripts/States/idle.gd" id="3_5cl7t"]
+[ext_resource type="Script" uid="uid://c7nqpdihak40d" path="res://Player/Scripts/player_camera.gd" id="3_f18oa"]
+[ext_resource type="Script" uid="uid://b0ynmi5j60epb" path="res://Player/Scripts/States/walk.gd" id="4_kjhl5"]
+[ext_resource type="Script" uid="uid://k24a4mdn6bdl" path="res://Player/Scripts/States/sprint.gd" id="5_uu1jw"]
+[ext_resource type="Script" uid="uid://b7fur3ys4y6vc" path="res://Player/Scripts/States/jump.gd" id="6_tv0aq"]
+[ext_resource type="Script" uid="uid://dd168o27bsygc" path="res://Player/Scripts/States/fall.gd" id="7_xm4d7"]
+[ext_resource type="Script" uid="uid://n0cxw2f02g4i" path="res://Player/Scripts/States/grounded_crouch.gd" id="8_uygg2"]
+[ext_resource type="Script" uid="uid://ds7ysdy0v7yih" path="res://Player/Scripts/States/mid_air_crouch.gd" id="9_gkjp0"]
+[ext_resource type="Script" uid="uid://f643iuaa8lw1" path="res://Player/Scripts/States/climb.gd" id="10_eqear"]
+[ext_resource type="Script" uid="uid://crt1lbxba6tlj" path="res://Player/Scripts/player_move_component.gd" id="11_unij8"]
+[ext_resource type="Script" uid="uid://dxdeu8h2oes5y" path="res://Player/Scripts/States/slide.gd" id="11_yknwi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kyiye"]
 
@@ -161,8 +161,8 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xshnn"]
 _data = {
-"RESET": SubResource("Animation_hsbpd"),
-"crouch": SubResource("Animation_64b1t")
+&"RESET": SubResource("Animation_hsbpd"),
+&"crouch": SubResource("Animation_64b1t")
 }
 
 [node name="Player" type="CharacterBody3D"]
@@ -359,7 +359,7 @@ wait_time = 0.3
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_xshnn")
+&"": SubResource("AnimationLibrary_xshnn")
 }
 autoplay = "RESET"
 

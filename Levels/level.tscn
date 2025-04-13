@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://cxyb318ufkr50"]
 
-[ext_resource type="Script" path="res://Levels/Scripts/level.gd" id="1_du8qd"]
+[ext_resource type="Script" uid="uid://lo3l5ingwu33" path="res://Levels/Scripts/level.gd" id="1_du8qd"]
 [ext_resource type="PackedScene" uid="uid://m7xendlceylm" path="res://Player/player.tscn" id="2_g3dvs"]
 [ext_resource type="Material" uid="uid://cxnv2l2hjdvb6" path="res://Environment/Materials/dark_grid.tres" id="2_sb5vj"]
 [ext_resource type="PackedScene" uid="uid://bavo6ltbadqrr" path="res://Levels/moving_wall.tscn" id="4_qi3ur"]
@@ -635,7 +635,7 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 
 ease_speed = 1.0
 
 [node name="AnimatableBody3D" parent="Ramps/MovingWall" index="0"]
-transform = Transform3D(-3.35276e-08, 3.27826e-07, -0.999997, 0, 0.999999, -2.66454e-14, 0.999999, 0, -1.11759e-07, 0, 0, 0)
+transform = Transform3D(-3.35276e-08, 3.27826e-07, -0.999997, 0, 0.999999, -2.4869e-14, 0.999999, 0, -1.11759e-07, 0, 0, 0)
 
 [node name="MeshInstance3D" parent="Ramps/MovingWall/AnimatableBody3D" index="0"]
 transform = Transform3D(1, -1.49012e-08, 7.10543e-15, 0, 1, -1.77636e-15, 0, 2.66454e-15, 1, 0, 0, 1)

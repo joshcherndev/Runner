@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bsqpi6ninpnh0"]
 
-[ext_resource type="Script" path="res://Levels/Scripts/respawn_point.gd" id="1_e6nej"]
+[ext_resource type="Script" uid="uid://ddvgospgjtx7x" path="res://Levels/Scripts/respawn_point.gd" id="1_e6nej"]
 
 [sub_resource type="HeightMapShape3D" id="HeightMapShape3D_jcrxl"]
 
