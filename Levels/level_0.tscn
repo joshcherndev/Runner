@@ -1,10 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8dxw6mdxvfx6"]
+[gd_scene load_steps=26 format=3 uid="uid://c8dxw6mdxvfx6"]
 
 [ext_resource type="Material" uid="uid://cxnv2l2hjdvb6" path="res://Environment/Materials/dark_grid.tres" id="2_bqm51"]
 [ext_resource type="PackedScene" uid="uid://m7xendlceylm" path="res://Player/player.tscn" id="3_aq7tb"]
 [ext_resource type="PackedScene" uid="uid://bavo6ltbadqrr" path="res://Levels/moving_wall.tscn" id="3_c6ucf"]
 [ext_resource type="PackedScene" uid="uid://dxg6u4dvx0rwc" path="res://Levels/Assets/obstacle_tube.tscn" id="4_xxdnk"]
-[ext_resource type="PackedScene" uid="uid://mcsocrr87kc6" path="res://Levels/Scenes/kill_wall.tscn" id="5_iam72"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_08fr8"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -22,10 +21,10 @@ glow_enabled = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_75v4o"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2w747"]
-size = Vector3(1, 10, 5)
+size = Vector3(1, 6, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_btpu4"]
-size = Vector3(1, 10, 5)
+size = Vector3(1, 6, 5)
 
 [sub_resource type="Curve3D" id="Curve3D_pnagy"]
 _data = {
@@ -48,12 +47,53 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="Curve3D" id="Curve3D_dim03"]
+[sub_resource type="BoxMesh" id="BoxMesh_epnel"]
+size = Vector3(5, 10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5pqfd"]
+size = Vector3(5, 10, 10)
+
+[sub_resource type="Curve3D" id="Curve3D_am1cx"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 3.75, 0, 0, 0, 0, 0, 0, 0, 0, 7.5),
-"tilts": PackedFloat32Array(0, 5, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0),
+"tilts": PackedFloat32Array(0, 0)
 }
-point_count = 3
+point_count = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hordx"]
+size = Vector3(5, 10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kiobq"]
+size = Vector3(5, 10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_75g3n"]
+size = Vector3(5, 10, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ohqh"]
+size = Vector3(3, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g0qw3"]
+size = Vector3(3, 1, 4)
+
+[sub_resource type="Curve3D" id="Curve3D_hyv8f"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_5pqfd"]
+size = Vector3(5, 1, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_am1cx"]
+size = Vector3(5, 1, 3)
+
+[sub_resource type="Curve3D" id="Curve3D_hordx"]
+_data = {
+"points": PackedVector3Array(-0.649984, 0, -0.698411, 0.5, 0, 0.5, 0, 0, 0, 5, 0, -5, -5, 0, 5, 0, 0, 10, 0.5, 0, 0.5, -0.5, 0, -0.5, -10, 0, 10, -5, 0, 5, 5, 0, -5, -10, 0, 0, -0.5, 0, -0.5, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
 
 [node name="Level0" type="Node3D"]
 
@@ -63,6 +103,342 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bwq5v")
+
+[node name="StairCSG" type="CSGCombiner3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 29.6542, 4.62772, -21.0709)
+use_collision = true
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="StairCSG"]
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="StairCSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="StairCSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="StairCSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="StairCSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -4, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="StairCSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -5, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="StairCSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -6, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="StairCSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -7, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="StairCSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -8, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="StairCSG7" type="CSGCombiner3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 29.6542, 4.62772, -18.0709)
+use_collision = true
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="StairCSG7"]
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="StairCSG7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="StairCSG7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="StairCSG7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="StairCSG7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -4, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="StairCSG7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -5, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="StairCSG7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -6, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="StairCSG7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -7, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="StairCSG7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -8, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="StairCSG2" type="CSGCombiner3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 33.6542, 8.62772, -21.0709)
+use_collision = true
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="StairCSG2"]
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="StairCSG2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="StairCSG2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="StairCSG2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="StairCSG2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -4, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="StairCSG2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -5, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="StairCSG2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -6, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="StairCSG2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -7, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="StairCSG2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -8, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="StairCSG3" type="CSGCombiner3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 37.6542, 12.6277, -21.0709)
+use_collision = true
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="StairCSG3"]
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="StairCSG3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="StairCSG3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="StairCSG3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="StairCSG3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -4, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="StairCSG3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -5, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="StairCSG3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -6, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="StairCSG3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -7, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="StairCSG3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -8, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="StairCSG4" type="CSGCombiner3D" parent="."]
+transform = Transform3D(-0.5, 0, -8.74228e-08, 0, 0.5, 0, 4.37114e-08, 0, -1, 45.6542, 4.62772, -21.0709)
+use_collision = true
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="StairCSG4"]
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="StairCSG4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="StairCSG4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="StairCSG4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="StairCSG4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -4, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="StairCSG4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -5, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="StairCSG4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -6, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="StairCSG4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -7, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="StairCSG4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -8, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="StairCSG5" type="CSGCombiner3D" parent="."]
+transform = Transform3D(-0.5, 0, -8.74228e-08, 0, 0.5, 0, 4.37114e-08, 0, -1, 41.6542, 8.62772, -21.0709)
+use_collision = true
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="StairCSG5"]
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="StairCSG5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="StairCSG5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="StairCSG5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="StairCSG5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -4, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="StairCSG5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -5, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="StairCSG5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -6, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="StairCSG5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -7, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="StairCSG5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -8, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="StairCSG6" type="CSGCombiner3D" parent="."]
+transform = Transform3D(-0.5, 0, -8.74228e-08, 0, 0.5, 0, 4.37114e-08, 0, -1, 37.6542, 12.6277, -21.0709)
+use_collision = true
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="StairCSG6"]
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="StairCSG6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="StairCSG6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="StairCSG6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="StairCSG6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -4, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="StairCSG6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -5, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="StairCSG6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -6, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="StairCSG6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -7, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="StairCSG6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -8, 0)
+size = Vector3(1, 1, 3)
+material = ExtResource("2_bqm51")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 use_collision = true
@@ -75,89 +451,130 @@ size = Vector3(97, 1, 50)
 material = ExtResource("2_bqm51")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 452.032, -100, 80)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 292.032, -100, 80)
 material_override = SubResource("ShaderMaterial_75v4o")
-size = Vector3(564, 1, 124)
+size = Vector3(244, 1, 124)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 425.032, -168, 2.42307)
+material_override = SubResource("ShaderMaterial_75v4o")
+size = Vector3(326.082, 1, 282.842)
 material = ExtResource("2_bqm51")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.27091, 3, 12)
 size = Vector3(1, 5, 3)
 material = ExtResource("2_bqm51")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 3, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4058, 2.38649, -18)
 size = Vector3(1, 5, 3)
 material = ExtResource("2_bqm51")
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 5, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.9058, 4.38649, -18)
 size = Vector3(6, 1, 3)
 material = ExtResource("2_bqm51")
 
-[node name="CSGBox3D11" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 24.25, 4.75, -2)
-size = Vector3(1, 1, 3)
-material = ExtResource("2_bqm51")
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 23.75, 4.25, -2)
-size = Vector3(1, 1, 3)
-material = ExtResource("2_bqm51")
-
-[node name="CSGBox3D13" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 23.25, 3.75, -2)
-size = Vector3(1, 1, 3)
-material = ExtResource("2_bqm51")
-
-[node name="CSGBox3D14" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 22.75, 3.25, -2)
-size = Vector3(1, 1, 3)
-material = ExtResource("2_bqm51")
-
-[node name="CSGBox3D15" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 22.25, 2.75, -2)
-size = Vector3(1, 1, 3)
-material = ExtResource("2_bqm51")
-
-[node name="CSGBox3D16" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 21.75, 2.25, -2)
-size = Vector3(1, 1, 3)
-material = ExtResource("2_bqm51")
-
-[node name="CSGBox3D17" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 21.25, 1.75, -2)
-size = Vector3(1, 1, 3)
-material = ExtResource("2_bqm51")
-
-[node name="CSGBox3D18" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 20.75, 1.25, -2)
-size = Vector3(1, 1, 3)
-material = ExtResource("2_bqm51")
-
-[node name="CSGBox3D19" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 20.25, 0.75, -2)
-size = Vector3(1, 1, 3)
-material = ExtResource("2_bqm51")
-
 [node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5, 4, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.9058, 3.38649, -18)
 size = Vector3(6, 1, 3)
 material = ExtResource("2_bqm51")
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 3, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.9058, 2.38649, -18)
+size = Vector3(6, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.9058, 1.38649, -18)
+size = Vector3(6, 1, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.9058, 0.386489, -18)
 size = Vector3(6, 1, 3)
 material = ExtResource("2_bqm51")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -7)
-size = Vector3(1, 20, 3)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 2.5, -15)
+size = Vector3(1, 5, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, -15)
+size = Vector3(1, 7, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D25" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 10.5, -16)
+size = Vector3(1, 7, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D26" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 17.5, -17)
+size = Vector3(1, 7, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 7.5, -16)
+size = Vector3(1, 5, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 12.5, -17)
+size = Vector3(1, 5, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 17.5, -18)
+size = Vector3(1, 5, 3)
 material = ExtResource("2_bqm51")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 3, 0.5, 0.5, 4.5)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 2.84217e-14, 0, 3, -3.77091, 0.5, 13.5)
 polygon = PackedVector2Array(0, 0, 0, 1, 2, 0)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.27091, 3, 9)
+size = Vector3(1, 5, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGPolygon3D7" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 2.84217e-14, 0, 3, -3.77091, 0.5, 10.5)
+polygon = PackedVector2Array(0, 0, 0, 1, 1.5, 0)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.27091, 3, 6)
+size = Vector3(1, 5, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGPolygon3D8" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 2.84217e-14, 0, 3, -3.77091, 0.5, 7.5)
+polygon = PackedVector2Array(0, 0, 0, 1, 1, 0)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.27091, 3, 15)
+size = Vector3(1, 5, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGPolygon3D5" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 2.84217e-14, 0, 3, -3.77091, 0.5, 16.5)
+polygon = PackedVector2Array(0, 0, 0, 1, 2.5, 0)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.27091, 3, 18)
+size = Vector3(1, 5, 3)
+material = ExtResource("2_bqm51")
+
+[node name="CSGPolygon3D6" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 2.84217e-14, 0, 3, -3.77091, 0.5, 19.5)
+polygon = PackedVector2Array(0, 0, 0, 1, 3, 0)
 material = ExtResource("2_bqm51")
 
 [node name="CSGPolygon3D2" type="CSGPolygon3D" parent="CSGCombiner3D"]
@@ -176,20 +593,35 @@ polygon = PackedVector2Array(0, 0, 0, 1, 2, 0)
 material = ExtResource("2_bqm51")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 2.25, 16)
 size = Vector3(1, 1, 7)
 material = ExtResource("2_bqm51")
 
 [node name="CSGBox3D10" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1.25, 16)
+size = Vector3(1, 1, 7)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 2.25, 16)
+size = Vector3(1, 1, 7)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 1.25, 16)
+size = Vector3(1, 1, 7)
+material = ExtResource("2_bqm51")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 1.25, 16)
 size = Vector3(1, 1, 7)
 material = ExtResource("2_bqm51")
 
 [node name="Player" parent="." instance=ExtResource("3_aq7tb")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.3016, 1.70969, -0.810548)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.6984, 1.70969, -0.810548)
 
 [node name="MovingWall" parent="." instance=ExtResource("3_c6ucf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3.5, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 3.5, -15)
 
 [node name="MeshInstance3D" parent="MovingWall/AnimatableBody3D" index="0"]
 mesh = SubResource("BoxMesh_2w747")
@@ -204,7 +636,7 @@ curve = SubResource("Curve3D_pnagy")
 transform = Transform3D(-4.37113e-08, 0, -0.999998, 0, 0.999998, 0, 0.999998, 0, -4.37113e-08, 0, 0, 0)
 
 [node name="MovingWall2" parent="." instance=ExtResource("3_c6ucf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 4.5, 12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 8.5, -16)
 time_offset = 0.33
 
 [node name="MeshInstance3D" parent="MovingWall2/AnimatableBody3D" index="0"]
@@ -220,7 +652,7 @@ curve = SubResource("Curve3D_3ddvu")
 transform = Transform3D(-4.37113e-08, 0, -0.999998, 0, 0.999998, 0, 0.999998, 0, -4.37113e-08, 0, 0, 0)
 
 [node name="MovingWall3" parent="." instance=ExtResource("3_c6ucf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 5.5, 14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 13.5, -17)
 time_offset = 0.67
 
 [node name="MeshInstance3D" parent="MovingWall3/AnimatableBody3D" index="0"]
@@ -238,21 +670,1275 @@ transform = Transform3D(-4.37113e-08, 0, -0.999998, 0, 0.999998, 0, 0.999998, 0,
 [node name="ObstacleTube" parent="." instance=ExtResource("4_xxdnk")]
 transform = Transform3D(5, -8.66025, 0, 8.66025, 5, 0, 0, 0, 10, 197.74, -61.0538, 2.65714)
 
-[node name="KillWall" parent="." instance=ExtResource("5_iam72")]
-transform = Transform3D(-4.37114e-07, 0, 10, 0, 10, 0, -10, 0, -4.37114e-07, -7.10807, 6.5, -21.5182)
-linear_speed = 0.04
+[node name="Stairs" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 336, -161, -87)
 
-[node name="Area3D" parent="KillWall" index="0"]
-transform = Transform3D(-1, 2.25256e-08, -8.44709e-08, 0, 0.966235, 0.257663, 8.74228e-08, 0.257663, -0.966235, 0, 0, 0)
+[node name="MovingWall" parent="Stairs" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 13.4456)
+linear_speed = 3.0
 
-[node name="Path3D" parent="KillWall" index="1"]
-curve = SubResource("Curve3D_dim03")
+[node name="AnimatableBody3D" parent="Stairs/MovingWall" index="0"]
+transform = Transform3D(5.96046e-08, -2.98023e-08, -0.999998, 7.45058e-08, 0.999998, 0, 0.999998, 1.52737e-07, -2.75671e-07, 0, 0, 0)
 
-[node name="PathFollow3D" parent="KillWall/Path3D" index="0"]
-transform = Transform3D(-1, 2.25256e-08, -8.44709e-08, 0, 0.966235, 0.257663, 8.74228e-08, 0.257663, -0.966235, 0, 0, 0)
-loop = false
+[node name="MeshInstance3D" parent="Stairs/MovingWall/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs/MovingWall/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_5pqfd")
+
+[node name="Path3D" parent="Stairs/MovingWall" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs/MovingWall/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall2" parent="Stairs" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 18.4456)
+linear_speed = 3.0
+time_offset = 0.25
+
+[node name="AnimatableBody3D" parent="Stairs/MovingWall2" index="0"]
+transform = Transform3D(5.96046e-08, -2.98023e-08, -0.999998, 7.45058e-08, 0.999998, 0, 0.999998, 1.52737e-07, -2.75671e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs/MovingWall2/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs/MovingWall2/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_hordx")
+
+[node name="Path3D" parent="Stairs/MovingWall2" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs/MovingWall2/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall3" parent="Stairs" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 23.4456)
+linear_speed = 3.0
+time_offset = 0.5
+
+[node name="AnimatableBody3D" parent="Stairs/MovingWall3" index="0"]
+transform = Transform3D(5.96046e-08, -2.98023e-08, -0.999998, 7.45058e-08, 0.999998, 0, 0.999998, 1.52737e-07, -2.75671e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs/MovingWall3/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs/MovingWall3/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_kiobq")
+
+[node name="Path3D" parent="Stairs/MovingWall3" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs/MovingWall3/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall4" parent="Stairs" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 28.4456)
+linear_speed = 3.0
+time_offset = 0.75
+
+[node name="AnimatableBody3D" parent="Stairs/MovingWall4" index="0"]
+transform = Transform3D(5.96046e-08, -2.98023e-08, -0.999998, 7.45058e-08, 0.999998, 0, 0.999998, 1.52737e-07, -2.75671e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs/MovingWall4/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs/MovingWall4/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_75g3n")
+
+[node name="Path3D" parent="Stairs/MovingWall4" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs/MovingWall4/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall5" parent="Stairs" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 48.4456)
+linear_speed = 3.0
+
+[node name="AnimatableBody3D" parent="Stairs/MovingWall5" index="0"]
+transform = Transform3D(-2.6077e-07, -8.9407e-08, -0.999998, -2.23517e-08, 0.999998, 8.9407e-08, 0.999998, -1.60187e-07, -5.96046e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs/MovingWall5/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs/MovingWall5/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_5pqfd")
+
+[node name="Path3D" parent="Stairs/MovingWall5" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs/MovingWall5/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall6" parent="Stairs" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 43.4456)
+linear_speed = 3.0
+time_offset = 0.25
+
+[node name="AnimatableBody3D" parent="Stairs/MovingWall6" index="0"]
+transform = Transform3D(-2.6077e-07, -8.9407e-08, -0.999998, -2.23517e-08, 0.999998, 8.9407e-08, 0.999998, -1.60187e-07, -5.96046e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs/MovingWall6/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs/MovingWall6/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_hordx")
+
+[node name="Path3D" parent="Stairs/MovingWall6" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs/MovingWall6/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall7" parent="Stairs" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 38.4456)
+linear_speed = 3.0
+time_offset = 0.5
+
+[node name="AnimatableBody3D" parent="Stairs/MovingWall7" index="0"]
+transform = Transform3D(-2.6077e-07, -8.9407e-08, -0.999998, -2.23517e-08, 0.999998, 8.9407e-08, 0.999998, -1.60187e-07, -5.96046e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs/MovingWall7/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs/MovingWall7/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_kiobq")
+
+[node name="Path3D" parent="Stairs/MovingWall7" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs/MovingWall7/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall8" parent="Stairs" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 33.4456)
+linear_speed = 3.0
+time_offset = 0.75
+
+[node name="AnimatableBody3D" parent="Stairs/MovingWall8" index="0"]
+transform = Transform3D(-2.6077e-07, -8.9407e-08, -0.999998, -2.23517e-08, 0.999998, 8.9407e-08, 0.999998, -1.60187e-07, -5.96046e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs/MovingWall8/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs/MovingWall8/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_75g3n")
+
+[node name="Path3D" parent="Stairs/MovingWall8" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs/MovingWall8/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="Stairs2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 377.5, -161, -98)
+
+[node name="MovingWall" parent="Stairs2" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 13.4456)
+linear_speed = 3.0
+
+[node name="AnimatableBody3D" parent="Stairs2/MovingWall" index="0"]
+transform = Transform3D(1.3411e-07, -2.98022e-08, -0.999998, 7.45058e-08, 0.999998, 0, 0.999998, 1.52737e-07, -4.02331e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs2/MovingWall/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs2/MovingWall/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_5pqfd")
+
+[node name="Path3D" parent="Stairs2/MovingWall" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs2/MovingWall/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall2" parent="Stairs2" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 18.4456)
+linear_speed = 3.0
+time_offset = 0.25
+
+[node name="AnimatableBody3D" parent="Stairs2/MovingWall2" index="0"]
+transform = Transform3D(1.3411e-07, -2.98022e-08, -0.999998, 7.45058e-08, 0.999998, 0, 0.999998, 1.52737e-07, -4.02331e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs2/MovingWall2/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs2/MovingWall2/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_hordx")
+
+[node name="Path3D" parent="Stairs2/MovingWall2" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs2/MovingWall2/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall3" parent="Stairs2" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 23.4456)
+linear_speed = 3.0
+time_offset = 0.5
+
+[node name="AnimatableBody3D" parent="Stairs2/MovingWall3" index="0"]
+transform = Transform3D(1.3411e-07, -2.98022e-08, -0.999998, 7.45058e-08, 0.999998, 0, 0.999998, 1.52737e-07, -4.02331e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs2/MovingWall3/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs2/MovingWall3/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_kiobq")
+
+[node name="Path3D" parent="Stairs2/MovingWall3" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs2/MovingWall3/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall4" parent="Stairs2" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 28.4456)
+linear_speed = 3.0
+time_offset = 0.75
+
+[node name="AnimatableBody3D" parent="Stairs2/MovingWall4" index="0"]
+transform = Transform3D(1.3411e-07, -2.98022e-08, -0.999998, 7.45058e-08, 0.999998, 0, 0.999998, 1.52737e-07, -4.02331e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs2/MovingWall4/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs2/MovingWall4/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_75g3n")
+
+[node name="Path3D" parent="Stairs2/MovingWall4" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs2/MovingWall4/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall5" parent="Stairs2" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 48.4456)
+linear_speed = 3.0
+
+[node name="AnimatableBody3D" parent="Stairs2/MovingWall5" index="0"]
+transform = Transform3D(-2.68221e-07, -8.9407e-08, -0.999999, -2.23517e-08, 0.999998, 8.9407e-08, 0.999999, -1.60187e-07, 0, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs2/MovingWall5/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs2/MovingWall5/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_5pqfd")
+
+[node name="Path3D" parent="Stairs2/MovingWall5" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs2/MovingWall5/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall6" parent="Stairs2" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 43.4456)
+linear_speed = 3.0
+time_offset = 0.25
+
+[node name="AnimatableBody3D" parent="Stairs2/MovingWall6" index="0"]
+transform = Transform3D(-2.68221e-07, -8.9407e-08, -0.999999, -2.23517e-08, 0.999998, 8.9407e-08, 0.999999, -1.60187e-07, 0, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs2/MovingWall6/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs2/MovingWall6/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_hordx")
+
+[node name="Path3D" parent="Stairs2/MovingWall6" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs2/MovingWall6/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall7" parent="Stairs2" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 38.4456)
+linear_speed = 3.0
+time_offset = 0.5
+
+[node name="AnimatableBody3D" parent="Stairs2/MovingWall7" index="0"]
+transform = Transform3D(-2.68221e-07, -8.9407e-08, -0.999999, -2.23517e-08, 0.999998, 8.9407e-08, 0.999999, -1.60187e-07, 0, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs2/MovingWall7/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs2/MovingWall7/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_kiobq")
+
+[node name="Path3D" parent="Stairs2/MovingWall7" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs2/MovingWall7/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall8" parent="Stairs2" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 33.4456)
+linear_speed = 3.0
+time_offset = 0.75
+
+[node name="AnimatableBody3D" parent="Stairs2/MovingWall8" index="0"]
+transform = Transform3D(-2.68221e-07, -8.9407e-08, -0.999999, -2.23517e-08, 0.999998, 8.9407e-08, 0.999999, -1.60187e-07, 0, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs2/MovingWall8/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs2/MovingWall8/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_75g3n")
+
+[node name="Path3D" parent="Stairs2/MovingWall8" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs2/MovingWall8/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="Stairs4" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 346.5, -161, -46)
+
+[node name="MovingWall" parent="Stairs4" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 13.4456)
+linear_speed = 3.0
+
+[node name="AnimatableBody3D" parent="Stairs4/MovingWall" index="0"]
+transform = Transform3D(8.9407e-08, -2.98022e-08, -0.999999, 7.45058e-08, 0.999998, 0, 1, 1.52737e-07, -4.17232e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs4/MovingWall/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs4/MovingWall/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_5pqfd")
+
+[node name="Path3D" parent="Stairs4/MovingWall" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs4/MovingWall/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall2" parent="Stairs4" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 18.4456)
+linear_speed = 3.0
+time_offset = 0.25
+
+[node name="AnimatableBody3D" parent="Stairs4/MovingWall2" index="0"]
+transform = Transform3D(8.9407e-08, -2.98022e-08, -0.999999, 7.45058e-08, 0.999998, 0, 1, 1.52737e-07, -4.17232e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs4/MovingWall2/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs4/MovingWall2/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_hordx")
+
+[node name="Path3D" parent="Stairs4/MovingWall2" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs4/MovingWall2/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall3" parent="Stairs4" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 23.4456)
+linear_speed = 3.0
+time_offset = 0.5
+
+[node name="AnimatableBody3D" parent="Stairs4/MovingWall3" index="0"]
+transform = Transform3D(8.9407e-08, -2.98022e-08, -0.999999, 7.45058e-08, 0.999998, 0, 1, 1.52737e-07, -4.17232e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs4/MovingWall3/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs4/MovingWall3/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_kiobq")
+
+[node name="Path3D" parent="Stairs4/MovingWall3" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs4/MovingWall3/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall4" parent="Stairs4" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 28.4456)
+linear_speed = 3.0
+time_offset = 0.75
+
+[node name="AnimatableBody3D" parent="Stairs4/MovingWall4" index="0"]
+transform = Transform3D(8.9407e-08, -2.98022e-08, -0.999999, 7.45058e-08, 0.999998, 0, 1, 1.52737e-07, -4.17232e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs4/MovingWall4/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs4/MovingWall4/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_75g3n")
+
+[node name="Path3D" parent="Stairs4/MovingWall4" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs4/MovingWall4/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall5" parent="Stairs4" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 48.4456)
+linear_speed = 3.0
+
+[node name="AnimatableBody3D" parent="Stairs4/MovingWall5" index="0"]
+transform = Transform3D(-3.27826e-07, -8.9407e-08, -1, -2.23517e-08, 0.999998, 8.9407e-08, 1, -1.60187e-07, 2.38419e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs4/MovingWall5/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs4/MovingWall5/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_5pqfd")
+
+[node name="Path3D" parent="Stairs4/MovingWall5" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs4/MovingWall5/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall6" parent="Stairs4" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 43.4456)
+linear_speed = 3.0
+time_offset = 0.25
+
+[node name="AnimatableBody3D" parent="Stairs4/MovingWall6" index="0"]
+transform = Transform3D(-3.27826e-07, -8.9407e-08, -1, -2.23517e-08, 0.999998, 8.9407e-08, 1, -1.60187e-07, 2.38419e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs4/MovingWall6/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs4/MovingWall6/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_hordx")
+
+[node name="Path3D" parent="Stairs4/MovingWall6" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs4/MovingWall6/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall7" parent="Stairs4" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 38.4456)
+linear_speed = 3.0
+time_offset = 0.5
+
+[node name="AnimatableBody3D" parent="Stairs4/MovingWall7" index="0"]
+transform = Transform3D(-3.27826e-07, -8.9407e-08, -1, -2.23517e-08, 0.999998, 8.9407e-08, 1, -1.60187e-07, 2.38419e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs4/MovingWall7/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs4/MovingWall7/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_kiobq")
+
+[node name="Path3D" parent="Stairs4/MovingWall7" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs4/MovingWall7/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall8" parent="Stairs4" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 33.4456)
+linear_speed = 3.0
+time_offset = 0.75
+
+[node name="AnimatableBody3D" parent="Stairs4/MovingWall8" index="0"]
+transform = Transform3D(-3.27826e-07, -8.9407e-08, -1, -2.23517e-08, 0.999998, 8.9407e-08, 1, -1.60187e-07, 2.38419e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs4/MovingWall8/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs4/MovingWall8/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_75g3n")
+
+[node name="Path3D" parent="Stairs4/MovingWall8" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs4/MovingWall8/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="Stairs3" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 388, -161, -56.5)
+
+[node name="MovingWall" parent="Stairs3" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 13.4456)
+linear_speed = 3.0
+
+[node name="AnimatableBody3D" parent="Stairs3/MovingWall" index="0"]
+transform = Transform3D(0, -2.98023e-08, -0.999999, 7.45058e-08, 0.999998, 0, 1, 1.52737e-07, -4.91738e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs3/MovingWall/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs3/MovingWall/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_5pqfd")
+
+[node name="Path3D" parent="Stairs3/MovingWall" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs3/MovingWall/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall2" parent="Stairs3" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 18.4456)
+linear_speed = 3.0
+time_offset = 0.25
+
+[node name="AnimatableBody3D" parent="Stairs3/MovingWall2" index="0"]
+transform = Transform3D(0, -2.98023e-08, -0.999999, 7.45058e-08, 0.999998, 0, 1, 1.52737e-07, -4.91738e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs3/MovingWall2/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs3/MovingWall2/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_hordx")
+
+[node name="Path3D" parent="Stairs3/MovingWall2" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs3/MovingWall2/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall3" parent="Stairs3" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 23.4456)
+linear_speed = 3.0
+time_offset = 0.5
+
+[node name="AnimatableBody3D" parent="Stairs3/MovingWall3" index="0"]
+transform = Transform3D(0, -2.98023e-08, -0.999999, 7.45058e-08, 0.999998, 0, 1, 1.52737e-07, -4.91738e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs3/MovingWall3/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs3/MovingWall3/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_kiobq")
+
+[node name="Path3D" parent="Stairs3/MovingWall3" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs3/MovingWall3/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall4" parent="Stairs3" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.40678, -9.5, 28.4456)
+linear_speed = 3.0
+time_offset = 0.75
+
+[node name="AnimatableBody3D" parent="Stairs3/MovingWall4" index="0"]
+transform = Transform3D(0, -2.98023e-08, -0.999999, 7.45058e-08, 0.999998, 0, 1, 1.52737e-07, -4.91738e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs3/MovingWall4/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs3/MovingWall4/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_75g3n")
+
+[node name="Path3D" parent="Stairs3/MovingWall4" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs3/MovingWall4/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall5" parent="Stairs3" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 48.4456)
+linear_speed = 3.0
+
+[node name="AnimatableBody3D" parent="Stairs3/MovingWall5" index="0"]
+transform = Transform3D(-4.47035e-07, -8.9407e-08, -0.999999, -2.23517e-08, 0.999998, 8.9407e-08, 0.999999, -1.60187e-07, -1.3411e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs3/MovingWall5/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs3/MovingWall5/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_5pqfd")
+
+[node name="Path3D" parent="Stairs3/MovingWall5" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs3/MovingWall5/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall6" parent="Stairs3" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 43.4456)
+linear_speed = 3.0
+time_offset = 0.25
+
+[node name="AnimatableBody3D" parent="Stairs3/MovingWall6" index="0"]
+transform = Transform3D(-4.47035e-07, -8.9407e-08, -0.999999, -2.23517e-08, 0.999998, 8.9407e-08, 0.999999, -1.60187e-07, -1.3411e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs3/MovingWall6/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs3/MovingWall6/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_hordx")
+
+[node name="Path3D" parent="Stairs3/MovingWall6" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs3/MovingWall6/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall7" parent="Stairs3" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 38.4456)
+linear_speed = 3.0
+time_offset = 0.5
+
+[node name="AnimatableBody3D" parent="Stairs3/MovingWall7" index="0"]
+transform = Transform3D(-4.47035e-07, -8.9407e-08, -0.999999, -2.23517e-08, 0.999998, 8.9407e-08, 0.999999, -1.60187e-07, -1.3411e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs3/MovingWall7/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs3/MovingWall7/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_kiobq")
+
+[node name="Path3D" parent="Stairs3/MovingWall7" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs3/MovingWall7/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="MovingWall8" parent="Stairs3" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.40678, -9.5, 33.4456)
+linear_speed = 3.0
+time_offset = 0.75
+
+[node name="AnimatableBody3D" parent="Stairs3/MovingWall8" index="0"]
+transform = Transform3D(-4.47035e-07, -8.9407e-08, -0.999999, -2.23517e-08, 0.999998, 8.9407e-08, 0.999999, -1.60187e-07, -1.3411e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Stairs3/MovingWall8/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_epnel")
+
+[node name="CollisionShape3D" parent="Stairs3/MovingWall8/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_75g3n")
+
+[node name="Path3D" parent="Stairs3/MovingWall8" index="1"]
+curve = SubResource("Curve3D_am1cx")
+
+[node name="PathFollow3D" parent="Stairs3/MovingWall8/Path3D" index="0"]
+transform = Transform3D(-4.37113e-08, 0.999998, -4.37113e-08, 0, -4.37113e-08, -0.999998, -0.999998, -4.37113e-08, 1.91068e-15, 0, 0, 0)
+
+[node name="Platforms" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 336, -166, 38)
+
+[node name="MovingWall" parent="Platforms" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66274, 0.500001, 15.2351)
+
+[node name="AnimatableBody3D" parent="Platforms/MovingWall" index="0"]
+transform = Transform3D(1.49012e-08, -2.98023e-08, -0.999999, 7.45058e-08, 0.999998, 0, 0.999999, 1.52737e-07, -2.68221e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Platforms/MovingWall/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 1.06581e-14, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_5ohqh")
+
+[node name="CollisionShape3D" parent="Platforms/MovingWall/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_g0qw3")
+
+[node name="Path3D" parent="Platforms/MovingWall" index="1"]
+curve = SubResource("Curve3D_hyv8f")
+
+[node name="MovingWall2" parent="Platforms" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66274, 2.5, 21.2351)
+time_offset = 1.0
+
+[node name="AnimatableBody3D" parent="Platforms/MovingWall2" index="0"]
+transform = Transform3D(1.49012e-08, -2.98023e-08, -0.999999, 7.45058e-08, 0.999998, 0, 0.999999, 1.52737e-07, -2.68221e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Platforms/MovingWall2/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 1.06581e-14, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_5ohqh")
+
+[node name="CollisionShape3D" parent="Platforms/MovingWall2/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_g0qw3")
+
+[node name="Path3D" parent="Platforms/MovingWall2" index="1"]
+curve = SubResource("Curve3D_hyv8f")
+
+[node name="MovingWall3" parent="Platforms" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66274, 4.5, 27.2351)
+time_offset = 2.0
+
+[node name="AnimatableBody3D" parent="Platforms/MovingWall3" index="0"]
+transform = Transform3D(1.49012e-08, -2.98023e-08, -0.999999, 7.45058e-08, 0.999998, 0, 0.999999, 1.52737e-07, -2.68221e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Platforms/MovingWall3/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 1.06581e-14, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_5ohqh")
+
+[node name="CollisionShape3D" parent="Platforms/MovingWall3/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_g0qw3")
+
+[node name="Path3D" parent="Platforms/MovingWall3" index="1"]
+curve = SubResource("Curve3D_hyv8f")
+
+[node name="MovingWall4" parent="Platforms" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66274, 6.5, 33.2351)
+time_offset = 3.0
+
+[node name="AnimatableBody3D" parent="Platforms/MovingWall4" index="0"]
+transform = Transform3D(1.49012e-08, -2.98023e-08, -0.999999, 7.45058e-08, 0.999998, 0, 0.999999, 1.52737e-07, -2.68221e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Platforms/MovingWall4/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 1.06581e-14, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_5ohqh")
+
+[node name="CollisionShape3D" parent="Platforms/MovingWall4/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_g0qw3")
+
+[node name="Path3D" parent="Platforms/MovingWall4" index="1"]
+curve = SubResource("Curve3D_hyv8f")
+
+[node name="MovingWall5" parent="Platforms" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66274, 8.5, 39.2351)
+time_offset = 4.0
+
+[node name="AnimatableBody3D" parent="Platforms/MovingWall5" index="0"]
+transform = Transform3D(1.49012e-08, -2.98023e-08, -0.999999, 7.45058e-08, 0.999998, 0, 0.999999, 1.52737e-07, -2.68221e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Platforms/MovingWall5/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 1.06581e-14, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_5ohqh")
+
+[node name="CollisionShape3D" parent="Platforms/MovingWall5/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_g0qw3")
+
+[node name="Path3D" parent="Platforms/MovingWall5" index="1"]
+curve = SubResource("Curve3D_hyv8f")
+
+[node name="MovingWall6" parent="Platforms" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66274, 10.5, 45.2351)
+time_offset = 5.0
+
+[node name="AnimatableBody3D" parent="Platforms/MovingWall6" index="0"]
+transform = Transform3D(1.49012e-08, -2.98023e-08, -0.999999, 7.45058e-08, 0.999998, 0, 0.999999, 1.52737e-07, -2.68221e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Platforms/MovingWall6/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 1.06581e-14, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_5ohqh")
+
+[node name="CollisionShape3D" parent="Platforms/MovingWall6/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_g0qw3")
+
+[node name="Path3D" parent="Platforms/MovingWall6" index="1"]
+curve = SubResource("Curve3D_hyv8f")
+
+[node name="Spinning" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 463, -161, 0)
+
+[node name="MovingWall" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97, -5, -2)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall2" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -107, -5, 8)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall2" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall2/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall2/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall2" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall2/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall2/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall3" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -107, -5, -2)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall3" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall3/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall3/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall3" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall3/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall3/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall4" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -97, -5, 8)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall4" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall4/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall4/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall4" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall4/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall4/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall5" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97, 1, -2)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall5" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall5/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall5/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall5" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall5/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall5/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall6" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -107, 1, 8)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall6" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall6/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall6/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall6" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall6/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall6/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall7" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -107, 1, -2)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall7" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall7/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall7/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall7" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall7/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall7/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall8" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -97, 1, 8)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall8" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall8/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall8/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall8" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall8/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall8/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall9" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -102, -2, -4.07107)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall9" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall9/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall9/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall9" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall9/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall9/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall10" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -102, -2, 10.0711)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall10" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall10/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall10/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall10" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall10/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall10/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall11" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, -109.071, -2, 3)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall11" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall11/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall11/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall11" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall11/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall11/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall12" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -94.9289, -2, 3)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall12" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall12/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall12/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall12" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall12/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall12/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall13" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -102, 4, -4.07107)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall13" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall13/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall13/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall13" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall13/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall13/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall14" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -102, 4, 10.0711)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall14" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall14/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall14/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall14" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall14/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall14/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall15" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, -109.071, 4, 3)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall15" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall15/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall15/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall15" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall15/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall15/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
+
+[node name="MovingWall16" parent="Spinning" instance=ExtResource("3_c6ucf")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -94.9289, 4, 3)
+linear_speed = 0.1
+ping_pong = false
+ease = false
+
+[node name="AnimatableBody3D" parent="Spinning/MovingWall16" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Spinning/MovingWall16/AnimatableBody3D" index="0"]
+mesh = SubResource("BoxMesh_5pqfd")
+
+[node name="CollisionShape3D" parent="Spinning/MovingWall16/AnimatableBody3D" index="1"]
+shape = SubResource("BoxShape3D_am1cx")
+
+[node name="Path3D" parent="Spinning/MovingWall16" index="1"]
+curve = SubResource("Curve3D_hordx")
+
+[node name="PathFollow3D" parent="Spinning/MovingWall16/Path3D" index="0"]
+transform = Transform3D(-0.707104, 0, -0.707102, 0, 0.999997, 0, 0.707104, 0, -0.707102, 0, 0, 0)
+cubic_interp = true
+loop = true
+
+[node name="RemoteTransform3D" parent="Spinning/MovingWall16/Path3D/PathFollow3D" index="0"]
+update_rotation = true
+update_scale = true
 
 [editable path="MovingWall"]
 [editable path="MovingWall2"]
 [editable path="MovingWall3"]
-[editable path="KillWall"]
+[editable path="Stairs/MovingWall"]
+[editable path="Stairs/MovingWall2"]
+[editable path="Stairs/MovingWall3"]
+[editable path="Stairs/MovingWall4"]
+[editable path="Stairs/MovingWall5"]
+[editable path="Stairs/MovingWall6"]
+[editable path="Stairs/MovingWall7"]
+[editable path="Stairs/MovingWall8"]
+[editable path="Stairs2/MovingWall"]
+[editable path="Stairs2/MovingWall2"]
+[editable path="Stairs2/MovingWall3"]
+[editable path="Stairs2/MovingWall4"]
+[editable path="Stairs2/MovingWall5"]
+[editable path="Stairs2/MovingWall6"]
+[editable path="Stairs2/MovingWall7"]
+[editable path="Stairs2/MovingWall8"]
+[editable path="Stairs4/MovingWall"]
+[editable path="Stairs4/MovingWall2"]
+[editable path="Stairs4/MovingWall3"]
+[editable path="Stairs4/MovingWall4"]
+[editable path="Stairs4/MovingWall5"]
+[editable path="Stairs4/MovingWall6"]
+[editable path="Stairs4/MovingWall7"]
+[editable path="Stairs4/MovingWall8"]
+[editable path="Stairs3/MovingWall"]
+[editable path="Stairs3/MovingWall2"]
+[editable path="Stairs3/MovingWall3"]
+[editable path="Stairs3/MovingWall4"]
+[editable path="Stairs3/MovingWall5"]
+[editable path="Stairs3/MovingWall6"]
+[editable path="Stairs3/MovingWall7"]
+[editable path="Stairs3/MovingWall8"]
+[editable path="Platforms/MovingWall"]
+[editable path="Platforms/MovingWall2"]
+[editable path="Platforms/MovingWall3"]
+[editable path="Platforms/MovingWall4"]
+[editable path="Platforms/MovingWall5"]
+[editable path="Platforms/MovingWall6"]
+[editable path="Spinning/MovingWall"]
+[editable path="Spinning/MovingWall2"]
+[editable path="Spinning/MovingWall3"]
+[editable path="Spinning/MovingWall4"]
+[editable path="Spinning/MovingWall5"]
+[editable path="Spinning/MovingWall6"]
+[editable path="Spinning/MovingWall7"]
+[editable path="Spinning/MovingWall8"]
+[editable path="Spinning/MovingWall9"]
+[editable path="Spinning/MovingWall10"]
+[editable path="Spinning/MovingWall11"]
+[editable path="Spinning/MovingWall12"]
+[editable path="Spinning/MovingWall13"]
+[editable path="Spinning/MovingWall14"]
+[editable path="Spinning/MovingWall15"]
+[editable path="Spinning/MovingWall16"]

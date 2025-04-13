@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dkrtjwfi42cyu" path="res://Levels/Assets/Blender/demo_level.blend" id="1_h713d"]
 [ext_resource type="Material" uid="uid://cxnv2l2hjdvb6" path="res://Environment/Materials/dark_grid.tres" id="2_78cik"]
-[ext_resource type="Script" path="res://Levels/Scripts/wave_floor.gd" id="3_26s46"]
+[ext_resource type="Script" uid="uid://dnff18f3f8psu" path="res://Levels/Scripts/wave_floor.gd" id="3_26s46"]
 [ext_resource type="PackedScene" uid="uid://bavo6ltbadqrr" path="res://Levels/moving_wall.tscn" id="3_a28dm"]
 [ext_resource type="Material" uid="uid://c6lpu50dpcpc3" path="res://Environment/Materials/orange_grid.tres" id="4_q7wni"]
 [ext_resource type="PackedScene" uid="uid://m7xendlceylm" path="res://Player/player.tscn" id="5_ocnpe"]
